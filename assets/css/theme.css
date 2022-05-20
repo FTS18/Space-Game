@@ -574,6 +574,10 @@ a {
   transition: 2.5s ease-in-out
 }
 
+body.disabledScroll{
+  overflow: hidden;
+}
+
 @media (min-width: 600px) {
   .games {
     grid-template-columns: repeat(2, 1fr);

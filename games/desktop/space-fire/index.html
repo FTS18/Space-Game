@@ -67,7 +67,7 @@
   </script>
 </head>
 
-<body onload="alerted();startGame()">
+<body class="disabledScroll" onload="alerted();startGame()">
   <div class="loading-screen">
     <div class="loader"></div>
     <div class="anim"></div>
@@ -153,7 +153,7 @@
         mycsl = new component("25px", "Consolas", "yellow", 650, 500, "text");
         myhealth = new component("25px", "Consolas", "yellow", 500, 500, "text");
         ufobullet = new component(20, 10, "h.jpg", mycoin.x, mycoin.y + 37, "image");
-      }, 3350);
+      }, 3450);
     }
 
     var myGameArea = {

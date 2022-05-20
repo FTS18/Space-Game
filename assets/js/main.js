@@ -17,4 +17,5 @@ window.addEventListener("click", drawRipple);
 //Slide Up on Page Load
 slideTimer = setInterval(function() {
       $('.loading-screen').slideUp();
+      $('body').toggleClass('disabledScroll');
     }, 3500);

@@ -124,7 +124,7 @@
   </style>
 </head>
 
-<body onload="startGame()" bgcolor="#000">
+<body class="disabledScroll" onload="startGame()" bgcolor="#000">
    <div class="loading-screen">
     <div class="loader"></div>
     <div class="anim"></div>
@@ -209,7 +209,7 @@
         zeros = 1;
         mycsl = new component("25px", "Poppins", "#f5ffe8", 470, 560, "text");
         myGameArea.start();
-      }, 3900);
+      }, 3700);
     }
     var myGameArea = {
       canvas: document.createElement("canvas"),

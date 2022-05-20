@@ -146,5 +146,5 @@ window.onload = function() {
       ctx.fillText(enemyScore, width / 4 * 3, height / 10);
       requestAnimationFrame(update);
     }
-  }, 3200);
+  }, 3750);
 }
