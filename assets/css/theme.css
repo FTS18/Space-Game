@@ -304,8 +304,21 @@ img {
   overflow: hidden;
   margin-top: 25px;
   opacity: .88;
+  text-align: right;
+  justify-content: bottom;
 }
-a{
+
+.card .text {
+  position: absolute; bottom: 10px; right: 10px;
+  transition: .5s ease-in-out;
+  opacity: 1;
+}
+.card .text:hover{
+  color: #fff;
+  opacity: 1;
+}
+
+a {
   text-decoration: none;
   color: white;
 }
@@ -362,14 +375,19 @@ a{
 
 .c11 {
   background: url(../images/backgrounds/18.png) no-repeat center;
-  background-size: cover;}
-  .c11,.c12{
-    display: flex;
-    justify-content: center;
-    place-items: center;
-    opacity: .8;
-  }
-  .c11::after,.c12::after{
+  background-size: cover;
+}
+
+.c11,
+.c12 {
+  display: flex;
+  justify-content: center;
+  place-items: center;
+  opacity: .8;
+}
+
+.c11::after,
+.c12::after {
   content: 'Coming Soon...';
   color: #fff;
   background: #ff0045;
@@ -377,7 +395,7 @@ a{
   border-radius: 6px;
 }
 
-.c12{
+.c12 {
   background: url(../images/backgrounds/19.png) no-repeat center;
   background-size: cover;
 }
@@ -388,7 +406,8 @@ a{
   margin-bottom: 10px;
   margin-top: 100px;
 }
-.games h3:nth-child(1){
+
+.games h3:nth-child(1) {
   margin-top: 0;
 }
 

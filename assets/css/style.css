@@ -26,22 +26,37 @@ body {
   height: 35vh;
   font-weight: 900;
   z-index: 40;
+  background: #000;
 }
 
 .welcome-div h1 {
   color: #fff;
   font-size: 60px;
-    position: fixed;
-    top: 17.5vh;
-    left:50%;
-    transform: translateX(-50%);
-    text-align: center;
-    z-index: 50000;
+  position: fixed;
+  top: 17.5vh;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  z-index: 50000;
+  backdrop-filter: blur(40px);
+  padding-right: 20px;
+  padding-left: 20px;
+  border-radius: 8px;
+  transition: .5s ease;
   /**background: url(../images/back.png);
     -webkit-text-stroke: 2px #fff;
     -webkit-background-clip: text;
     background-position: 0 0;
     animation: back 11s linear infinite;**/
+}
+
+.welcome-div h1:hover {
+  filter: invert(10%);
+}
+
+.welcome-div h1::selection {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.3);
 }
 
 @keyframes back {
@@ -58,14 +73,14 @@ body {
     top: 26vh;
     left: 50%;
     height: 30vh;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%, -50%);
   }
 
   .welcome-div h1 {
     font-size: 40px;
     position: fixed;
     top: 12.5vh;
-    left:50%;
+    left: 50%;
     transform: translateX(-50%);
     text-align: center;
   }
