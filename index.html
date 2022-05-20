@@ -27,20 +27,33 @@
   <script src="assets/js/main.js"></script>
   <script>
     //NavBar Menu Code
-    $(document).ready(function() {
-      $('.toggle').click(function() {
-        $('.menuBtn').toggleClass('active')
-        $('.menu').toggleClass('active')
-        $('body').toggleClass('disabledScroll')
-        $('.logo').toggleClass('hide')
+
+    $(function() {
+      $("html").on("click", function(e) {
+        let $t = $(e.target),
+          $myLinks = $("#menu"),
+          $toggleMenu = $(".toggle");
+        if ($t.is($myLinks) || $myLinks.has($t).length) {
+          //clicked in the menu. do nothing
+        } else if ($t.is($toggleMenu) || $toggleMenu.has($t).length) {
+          $('.menuBtn').toggleClass('active')
+          $('.menu').toggleClass('active')
+          $('body').toggleClass('disabledScroll')
+          $('.logo').toggleClass('hide')
+        } else {
+          $('.menuBtn').removeClass('active')
+          $('.menu').removeClass('active')
+          $('body').removeClass('disabledScroll')
+          $('.logo').removeClass('hide')
+        }
       })
-    })
+    });
   </script>
 </head>
 
-<body bgcolor="black " text="white ">
+<body class="body" bgcolor="black " text="white ">
   <div class="ripple"></div>
-  <div class="menu ">
+  <div class="menu" id="menu">
     <div class="menuContents ">
       <a href="#">Home</a>
       <a href="#">Register</a>
@@ -49,7 +62,7 @@
       <a href="#">Help Us</a>
     </div>
   </div>
-  <nav class="nav ">
+  <nav class="nav" id="nav">
     <a class="logo " href="# ">
       <img id="svg" src="assets/images/logo.svg" />
     </a>
@@ -140,20 +153,27 @@
         <h3>Web Games</h3>
         <a href="games/ping-pong/index.html">
           <div class="card c9">
-            <div class="text">Ping Pong</div></div>
+            <div class="text">Ping Pong</div>
+          </div>
         </a>
         <a href="games/pacman/index.html">
           <div class="card c10">
-            <div class="text">PacMan</div></div>
+            <div class="text">PacMan</div>
+          </div>
+
+        </a>
+        <a href="/coming-soon.html">
+          <div class="card c11">
+            <div class="text cs">Coming Soon...</div>
           </div>
         </a>
         <a href="/coming-soon.html">
-          <div class="card c11"><div class="text cs">Coming Soon...</div></div>
-        </a>
-        <a href="/coming-soon.html">
-          <div class="card c12"><div class="text cs">Coming Soon...</div></div>
+          <div class="card c12">
+            <div class="text cs">Coming Soon...</div>
+          </div>
         </a>
       </div>
+    </div>
     </div>
   </section>
 
