@@ -46,12 +46,11 @@ img {
   top: 45vh;
   left: 0;
   background: rgb(0, 0, 0);
-  background: linear-gradient(180deg, rgba(0, 0, 0, 1) 0%, rgba(15, 15, 15, 1) 100%);
+  background: linear-gradient(180deg, #121212 0%, #121212 100%);
   width: 100%;
   height: auto;
-  padding-bottom: 10vh;
+  padding-bottom: 5vh;
   z-index: 85;
-  border: 1px solid #000;
   border-radius: 15px;
   margin-top: 20px;
   border-bottom-left-radius: 0px;
@@ -61,6 +60,7 @@ img {
   border-right: 0px;
   padding-top: 45px;
   font-family: 'Space Grotesk';
+  margin-bottom: -150px;
 }
 
 .games {
@@ -81,6 +81,40 @@ img {
   overflow: hidden;
   z-index: 3000;
   border-bottom: 2px solid black;
+  margin-bottom: -150px;
+}
+
+.main-content:after {
+  content: "";
+  display: block;
+  height: 300px;
+  /*height of footer*/
+}
+
+.footer {
+  height: auto;
+  background: #000;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  z-index: 50000;
+  padding: 0px;
+  padding-top: 40px;
+  padding-bottom: 30px;
+  text-align: center;
+}
+.bottom1{
+  margin: 20px;
+  line-height: 28px;
+}
+.bottom1 a{
+  transition: .5s ease-in-out;
+  border-bottom: 3px dashed #222;
+}
+.bottom1 a:hover {
+  background: #222;
+  padding:0px 3px 0px 3px;
+  border-radius: 1.5px;
 }
 
 .toggle {
@@ -293,12 +327,12 @@ img {
   justify-content: center;
   transform: translate(5%, 0%);
   border-radius: 2px;
-  border: .2px solid #444;
+  border: .2px solid #666;
   background: #222;
   width: 84%;
   max-width: 600px;
   padding: 10px;
-  height: 170px;
+  height: 160px;
   transition: 0.5s ease-in-out;
   overflow: hidden;
   margin-top: 25px;
@@ -309,10 +343,16 @@ img {
 
 .card .text {
   position: absolute;
-  bottom: 10px;
-  left: 10px;
+  bottom: 0px;
+  left: 0px;
   transition: .5s ease-in-out;
   opacity: 1;
+  width: 100%;
+  height: auto;
+  padding: 12px;
+  text-align: left;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(50px);
 }
 
 .card .text:hover {
@@ -391,13 +431,14 @@ a {
 .card .cs {
   content: 'Coming Soon...';
   color: #fff;
-  background: #ff0045;
+  background: #ff0025;
   padding: 7px;
-  border-radius: 6px;
-  position: absolute;
-  bottom: 50%;
-  left: 50%;
+  border-radius: 3px;
+  position: relative;
+  bottom: 0;
+  left: 0;
   transform: translate (-50%, -50%);
+  width: auto;
 }
 
 .c12 {
@@ -408,18 +449,16 @@ a {
 .games h3 {
   margin: 17px;
   color: #ff0040;
-  margin-bottom: 10px;
-  margin-top: 100px;
 }
 
-.games h3:nth-child(1) {
-  margin-top: 0;
+.group {
+  margin: 0;
 }
 
 .games {
   display: grid;
   grid-gap: 0rem;
-  max-width: 825px;
+  max-width: 900px;
   margin: 0 auto;
 }
 
@@ -429,10 +468,12 @@ a {
   /**border: .05px solid white;**/
   opacity: .7;
 }
-.page{
+
+.page {
   opacity: 1;
   transition: 1s ease-in-out;
 }
+
 .page.disabledScroll {
   overflow: hidden;
   opacity: 0.7;
@@ -483,5 +524,25 @@ a {
     border: none;
     margin-left: 0px;
     padding-top: 0px;
+  }
+
+  .group {
+    margin-top: 15px;
+  }
+
+  .group:nth-child(1) {
+    margin-top: 0;
+  }
+
+  .games h3 {
+    margin-left: 20px;
+  }
+
+  .card {
+    height: 200px;
+  }
+
+  .footer {
+    width: 100%;
   }
 }

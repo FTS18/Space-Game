@@ -103,9 +103,8 @@ canvas {
 }
 
 body {
-  background: #000;
+  background: #121212;
   width: 100%;
-  height: 100%;
   margin: 0;
   padding: 0;
   transition: 0.3s ease-in-out;
