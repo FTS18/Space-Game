@@ -309,7 +309,7 @@ img {
 }
 
 .card .text {
-  position: absolute; bottom: 10px; right: 10px;
+  position: absolute; bottom: 10px; left: 10px;
   transition: .5s ease-in-out;
   opacity: 1;
 }
@@ -392,6 +392,8 @@ a {
   background: #ff0045;
   padding: 7px;
   border-radius: 6px;
+position: absolute; bottom: 50%; left: 50%;
+transform: translate (-50%,-50%);
 }
 
 .c12 {
