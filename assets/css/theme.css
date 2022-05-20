@@ -386,8 +386,7 @@ a {
   opacity: .8;
 }
 
-.c11::after,
-.c12::after {
+.card .cs{
   content: 'Coming Soon...';
   color: #fff;
   background: #ff0045;
