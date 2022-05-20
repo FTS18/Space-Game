@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="../../../assets/css/theme.css" type="text/css" media="all" />
   <script src="../../../assets/js/main.js"></script>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 
   <style>
@@ -29,8 +29,8 @@
       transform: translate(-50, -50%);
       transition: 0.3s ease-in-out;
       transform: translate (-50%, -50%);
-      border: 3px solid #fff;
-      border-radius: 9px;
+      border: 2px solid #333;
+      border-radius: 7px;
     }
 
     body {
@@ -68,6 +68,10 @@
 </head>
 
 <body onload="alerted();startGame()">
+  <div class="loading-screen">
+    <div class="loader"></div>
+    <div class="anim"></div>
+  </div>
   <script>
     var myObstacles = [];
     var myMusic;
@@ -95,8 +99,10 @@
     var health;
 
     function startGame() {
-      document.body.innerHTML = '';
-      document.body.innerHTML += `
+      setTimeout(function() {
+
+        document.body.innerHTML = '';
+        document.body.innerHTML += `
       <div class="ripple"></div>
       <nav class="nav">
         <a class="logo" href="#">
@@ -125,28 +131,29 @@
             </div>
         </div>
     </nav>`;
-      myGamePiece = new component(120, 80, "g.png", 10, 120, "image");
-      mybackground = new component(1490, 650, "../../../assets/images/backgrounds/02.png", 0, 0, "background");
-      myMusic = new sound("../../../assets/music/Recording.m4a");
-      mysound = new sound("../../../assets/music/ACRON.mp3");
-      myscore = new component("15px", "Consolas", "yellow", 1300, 15, "text");
-      myhealth = new component("15px", "Consolas", "yellow", 1300, 15, "text");
-      myovers = new component("100px", "Consolas", "red", 500, 300, "text");
-      myscores = new component("50px", "Consolas", "yellow", 550, 450, "text");
-      mycs = new component("15px", "Consolas", "yellow", 1000, 15, "text");
-      mypos = this.x;
-      myposs = this.y;
-      mybulletsound = new sound("../../../assets/music/bullet.mp3");
-      mycoin = new component(100, 50, "UFO2.png", Math.floor((Math.random() * 1400) + 1), Math.floor((Math.random() * 600) + 1), "image");
-      mybullet = new component(20, 10, "h.jpg", myGamePiece.x, myGamePiece.y + 37, "image");
-      mybullet1 = new component(20, 10, "h.jpg", myGamePiece.x + 30, myGamePiece.y + 37, "image");
-      myGameArea.start();
-      coinscore = 0;
-      health = 0;
-      zeros = 1;
-      mycsl = new component("25px", "Consolas", "yellow", 650, 500, "text");
-      myhealth = new component("25px", "Consolas", "yellow", 500, 500, "text");
-      ufobullet = new component(20, 10, "h.jpg", mycoin.x, mycoin.y + 37, "image");
+        myGamePiece = new component(120, 80, "g.png", 10, 120, "image");
+        mybackground = new component(1490, 650, "../../../assets/images/backgrounds/02.png", 0, 0, "background");
+        myMusic = new sound("../../../assets/music/Recording.m4a");
+        mysound = new sound("../../../assets/music/ACRON.mp3");
+        myscore = new component("15px", "Consolas", "yellow", 1300, 15, "text");
+        myhealth = new component("15px", "Consolas", "yellow", 1300, 15, "text");
+        myovers = new component("100px", "Consolas", "red", 500, 300, "text");
+        myscores = new component("50px", "Consolas", "yellow", 550, 450, "text");
+        mycs = new component("15px", "Consolas", "yellow", 1000, 15, "text");
+        mypos = this.x;
+        myposs = this.y;
+        mybulletsound = new sound("../../../assets/music/bullet.mp3");
+        mycoin = new component(100, 50, "UFO2.png", Math.floor((Math.random() * 1400) + 1), Math.floor((Math.random() * 600) + 1), "image");
+        mybullet = new component(20, 10, "h.jpg", myGamePiece.x, myGamePiece.y + 37, "image");
+        mybullet1 = new component(20, 10, "h.jpg", myGamePiece.x + 30, myGamePiece.y + 37, "image");
+        myGameArea.start();
+        coinscore = 0;
+        health = 0;
+        zeros = 1;
+        mycsl = new component("25px", "Consolas", "yellow", 650, 500, "text");
+        myhealth = new component("25px", "Consolas", "yellow", 500, 500, "text");
+        ufobullet = new component(20, 10, "h.jpg", mycoin.x, mycoin.y + 37, "image");
+      }, 3350);
     }
 
     var myGameArea = {
@@ -407,7 +414,9 @@
     }
 
     function alerted() {
-      alert("For firing bullets to destroy UFOs press spacebar and aim at UFO. To destroy UFO many bullets can be needed for one.")
+      setTimeout(function() {
+        alert("To destroy the UFO aim at it and then press spacebar. More than one bullets may be needed to destroy the UFO")
+      }, 3250);
     }
   </script>
 </body>

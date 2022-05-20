@@ -231,6 +231,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 })
+
 //Ripple
 var drawRipple = function(ev) {
   var x = ev.clientX;
