@@ -5,13 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimum-scale=1" />
   <title>Space Fire | PC</title>
   <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-  <meta name="theme-color" content="#1d1d1d">
-  <meta name="msapplication-navbutton-color" content="#1d1d1d">
-  <meta name="apple-mobile-web-app-status-bar-style" content="#1d1d1d">
+  <meta name="theme-color" content="#000">
+  <meta name="msapplication-navbutton-color" content="#000">
+  <meta name="apple-mobile-web-app-status-bar-style" content="#000">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="../../../assets/css/theme.css" type="text/css" media="all" />
+  <script src="../../../assets/js/main.js"></script>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
@@ -43,18 +44,30 @@
   </style>
   <script>
     //NavBar Menu Code
-    $(document).ready(function() {
-      $('.toggle').click(function() {
-        $('.menuBtn').toggleClass('active')
-        $('.menu').toggleClass('active')
-        $('body').toggleClass('disabledScroll')
+    $(function() {
+      $("html").on("click", function(e) {
+        let $t = $(e.target),
+          $myLinks = $("#menu"),
+          $toggleMenu = $(".toggle");
+        if ($t.is($myLinks) || $myLinks.has($t).length) {
+          //clicked in the menu. do nothing
+        } else if ($t.is($toggleMenu) || $toggleMenu.has($t).length) {
+          $('.menuBtn').toggleClass('active')
+          $('.menu').toggleClass('active')
+          $('.page').toggleClass('disabledScroll')
+          $('.logo').toggleClass('hide')
+        } else {
+          $('.menuBtn').removeClass('active')
+          $('.menu').removeClass('active')
+          $('.page').removeClass('disabledScroll')
+          $('.logo').removeClass('hide')
+        }
       })
-    })
+    });
   </script>
 </head>
 
 <body onload="alerted();startGame()">
-
   <script>
     var myObstacles = [];
     var myMusic;
@@ -84,6 +97,7 @@
     function startGame() {
       document.body.innerHTML = '';
       document.body.innerHTML += `
+      <div class="ripple"></div>
       <nav class="nav">
         <a class="logo" href="#">
             <svg id="svg" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="400" height="400" viewBox="0, 0, 400,400">

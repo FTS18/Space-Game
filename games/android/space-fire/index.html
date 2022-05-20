@@ -6,13 +6,14 @@
   <title>Space Fire | Android</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimum-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-  <meta name="theme-color" content="#1d1d1d">
-  <meta name="msapplication-navbutton-color" content="#1d1d1d">
-  <meta name="apple-mobile-web-app-status-bar-style" content="#1d1d1d">
+  <meta name="theme-color" content="#000">
+  <meta name="msapplication-navbutton-color" content="#000">
+  <meta name="apple-mobile-web-app-status-bar-style" content="#000">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="../../../assets/css/theme.css" type="text/css" media="all" />
+  <script src="../../../assets/js/main.js"></script>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
@@ -179,6 +180,7 @@
     function startGame() {
       document.body.innerHTML = '';
       document.body.innerHTML += ` 
+      <div class="ripple"></div>
             <div class="joystick">
         <button class="top key" onmousedown="moveUp()" onmouseup="stopMove()" ontouchstart="moveUp()">Up</button>
         <button class="bottom key" onmousedown="moveDown()" onmouseup="stopMove()" ontouchstart="moveDown()">Down</button>
@@ -419,7 +421,7 @@
       //}
       //Touchscreen
       if (myGameArea.x && myGameArea.y) {
-        myGamePiece.x = 2.5*myGameArea.x;
+        myGamePiece.x = 2.5 * myGameArea.x;
         myGamePiece.y = myGameArea.y;
       }
       myGamePiece.update()
@@ -513,13 +515,26 @@
     }
 
     //NavBar Menu Code
-    $(document).ready(function() {
-      $('.toggle').click(function() {
-        $('.menuBtn').toggleClass('active')
-        $('.menu').toggleClass('active')
-        $('body').toggleClass('disabledScroll')
+    $(function() {
+      $("html").on("click", function(e) {
+        let $t = $(e.target),
+          $myLinks = $("#menu"),
+          $toggleMenu = $(".toggle");
+        if ($t.is($myLinks) || $myLinks.has($t).length) {
+          //clicked in the menu. do nothing
+        } else if ($t.is($toggleMenu) || $toggleMenu.has($t).length) {
+          $('.menuBtn').toggleClass('active')
+          $('.menu').toggleClass('active')
+          $('.page').toggleClass('disabledScroll')
+          $('.logo').toggleClass('hide')
+        } else {
+          $('.menuBtn').removeClass('active')
+          $('.menu').removeClass('active')
+          $('.page').removeClass('disabledScroll')
+          $('.logo').removeClass('hide')
+        }
       })
-    })
+    });
   </script>
 </body>
 
