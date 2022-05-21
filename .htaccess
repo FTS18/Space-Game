@@ -24,5 +24,16 @@ ExpiresByType image/png "now plus 1 month"
 AddOutputFilterByType DEFLATE text/html text/css text/plain application/javascript image/svg+xml
 
 #Prevent directory from being shown
-Options +Indexes
 DirectoryIndex disabled
+IndexIgnore *.css,.js
+Options +FollowSymLinks -MultiViews +Indexes
+
+#Making it https
+RewriteCond %{HTTPS} !on
+RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+
+#Protecting Files
+AuthType Basic
+AuthName "Require Authentication"
+AuthUserFile assets/css/.htpasswd
+Require valid-user

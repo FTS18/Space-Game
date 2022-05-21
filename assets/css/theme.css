@@ -144,7 +144,6 @@ img {
 .swiper-slide {
   text-align: center;
   font-size: 18px;
-  background: #fff;
   /* Center slide text vertically */
   display: -webkit-box;
   display: -ms-flexbox;
@@ -158,6 +157,11 @@ img {
   -ms-flex-align: center;
   -webkit-align-items: center;
   align-items: center;
+  background: #000;
+}
+
+.swiper-slide img:: before{
+  
 }
 
 .swiper-slide img {
@@ -434,7 +438,7 @@ img {
   transform: translate(5%, 0%);
   border-radius: 2px;
   border: .2px solid #666;
-  background: #222;
+  background: ;
   width: 84%;
   max-width: 600px;
   padding: 10px;
