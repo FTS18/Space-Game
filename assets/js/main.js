@@ -16,6 +16,18 @@ window.addEventListener("click", drawRipple);
 
 //Slide Up on Page Load
 slideTimer = setInterval(function() {
-      $('.loading-screen').slideUp();
-      $('body').toggleClass('disabledScroll');
-    }, 3500);
+  $('.loading-screen').slideUp();
+  $('body').toggleClass('disabledScroll');
+}, 3500);
+
+/*
+function loadStyle() {
+  var styles = document.createElement('link');
+  styles.rel = 'stylesheet';
+  styles.type = 'text/css';
+  styles.media = 'all';
+  styles.href = 'assets/css/theme.css';
+  document.getElementsByTagName('head')[0].appendChild(styles);
+};
+window.onload = loadStyle();
+*/
