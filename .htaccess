@@ -1,5 +1,15 @@
 RewriteEngine on
+#Error Pages
 ErrorDocument 404   https://finixx.netlify.app/404.html
+#Removing .html as extension
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^(.*)\.html$ /$1 [L,R=301]
+RewriteRule ^(.*)\.html$ /index [L,R=301]
+#Changing Subdirectory
+"RewriteCond %{REQUEST_URI} !^/subdir/
+RewriteRule ^(.*) /subdir/$1 [L]"
+#Cachinh images
+ExpiresActive On
+ExpiresByType image/png "now plus 1 month"
+#Compress Images
+AddOutputFilterByType DEFLATE text/html text/css text/plain application/javascript image/svg+xml
