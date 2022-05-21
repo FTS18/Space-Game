@@ -1,7 +1,7 @@
 RewriteEngine on
 #Error Pages
-ErrorDocument 404 https://finixx.netlify.app/404.html
-ErrorDocument 401 https://finixx.netlify.app/401.html
+ErrorDocument 404 https://finixx.netlify.app/error/404.html
+ErrorDocument 401 https://finixx.netlify.app/error/401.html
 
 #Removing .html as extension
 RewriteBase /
