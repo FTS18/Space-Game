@@ -228,8 +228,8 @@ function updateGameArea() {
         myObstacles[i].update();
     }
     if (myGameArea.key && myGameArea.key == 32) {
-    mybullet = new component(20, 10, "h.jpg", myGamePiece.x, myGamePiece.y + 37, "image");
-    mybullet1 = new component(20, 10, "h.jpg", myGamePiece.x + 30, myGamePiece.y + 37, "image");
+    mybullet = new component(20, 10, "h.jpg", myGamePiece.x+90, myGamePiece.y + 7, "image");
+    mybullet1 = new component(20, 10, "h.jpg", myGamePiece.x + 120, myGamePiece.y + 7, "image");
     mybullet.speedX = 6;
     mybullet1.speedX = 6;
     mybulletsound.play();
