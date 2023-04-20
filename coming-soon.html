@@ -1,197 +1,191 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <title>Hold On!</title>
-   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimum-scale=1" />
-  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-  <meta name="theme-color" content="#000">
-  <meta name="msapplication-navbutton-color" content="#000">
-  <meta name="apple-mobile-web-app-status-bar-style" content="#000">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <script src="assets/js/main.js"></script>
-  <!--<script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.8.1/dist/lazyload.min.js"></script>-->
-  <!-- Google Font-->
-  <link href="https://fonts.googleapis.com/css2?family=Space%20Grotesk:wght@400;700;900&display=swap" rel="stylesheet">
-  <style>
-    * {
-      box-sizing: border-box;
-      padding: 0px;
-      margin: 0px;
-      text-decoration: none;
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    body,
-    html {
-      color: #011C25;
-      font-size: 18px;
-      background: url(assets/images/backgrounds/08.png) no-repeat center;
-      background-size: cover;
-      font-family: "Space Grotesk", -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    }
-
-    /*Ripple*/
-    .ripple {
-      width: 8px;
-      height: 8px;
-      opacity: 0;
-      transform: scale(0);
-      border-radius: 50%;
-      position: fixed;
-      z-index: 500000;
-      background: rgba(255, 255, 255, 0.3);
-    }
-
-    /*Animate Function*/
-    .animate {
-      animation: ripple-mo .5s cubic-bezier(0, 0, 0.2, 1);
-    }
-
-    @keyframes ripple-mo {
-      0% {
-        transform: scale(0);
-        opacity: 1;
-      }
-
-      100% {
-        transform: scale(9.5);
-        opacity: 0;
-      }
-    }
-    .box-coming-canvas {
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-    }
-
-    .box-coming-canvas .inner-box {
-      width: 100%;
-    }
-
-    .box-coming-canvas .logo {
-      margin-bottom: 2rem;
-    }
-
-    .box-coming-canvas .logo img {
-      position: fixed;
-      bottom: 25px;
-      right: 15px;
-      max-width: 160px;
-          filter: invert(100%);
-    }
-
-    .box-coming-canvas .title {
-      margin-bottom: 3rem;
-      color: #fff;
-      font-weight: 900;
-      font-size: 72px;
-    }
-
-    .title::selection {
-      color: #ff0040;
-      background: rgba(255, 255, 255, 0.3);
-    }
-
-
-    .box-coming-canvas .box-sub {
-      display: flex;
-      justify-content: space-between;
-      max-width: 570px;
-      width: 100%;
-      margin: auto;
-      padding: 10px;
-      border-radius: 40px;
-      background-color: rgba(255, 255, 255, 0.192);
-      backdrop-filter: blur(10px);
-      margin-bottom: 4rem;
-      border: 1px solid rgba(43, 43, 43, 0.568);
-    }
-
-    .box-coming-canvas .box-sub .form-control {
-      flex: 1;
-      padding: 7px 10px;
-      background-color: transparent;
-      border: 0px;
-      outline: 0px;
-      font-size: 1rem;
-    }
-
-    .box-coming-canvas .box-sub .form-control,
-    .form-control::placeholder {
-      color: #fff;
-    }
-
-    .form-control::selection {
-      color: white;
-      background: rgba(255, 255, 255, 0.3);
-    }
-
-    a {
-      user-select: none;
-    }
-
-    .box-coming-canvas .box-sub .btn {
-      padding: 7px 20px;
-      background: linear-gradient(270deg, #ff0000 0%, #ff0075 100%);
-      box-shadow: 5px 5px 10px rgba(170, 170, 204, 0.5), -5px -5px 10px rgba(255, 255, 255, 0.1);
-      border-radius: 32px;
-      color: #fff;
-      border: 0px;
-      font-size: 20px;
-      font-weight: bold;
-      transition: 2s ease;
-      cursor: pointer;
-    }
-
-    .box-coming-canvas .box-sub .btn:hover {
-      background: linear-gradient(-270deg, #ff0035 0%, #ff0035 100%);
-    }
-
-    @media (max-width: 768px) {
-
-      html,
-      body {
-        font-size: 14px;
-      }
-
-      .box-coming-canvas {
-        padding: 15px;
-      }
-
-      .box-coming-canvas .title {
-        font-size: 48px;
-      }
-
-      .box-coming-canvas .box-sub .btn {
-        font-size: 16px;
-      }
-
-      .box-coming-canvas .logo img {
-        max-width: 40px;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <title>Hold On!</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimum-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="theme-color" content="#000">
+    <meta name="msapplication-navbutton-color" content="#000">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#000">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <script src="assets/js/main.js"></script>
+    <!--<script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.8.1/dist/lazyload.min.js"></script>-->
+    <!-- Google Font-->
+    <link href="https://fonts.googleapis.com/css2?family=Space%20Grotesk:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            padding: 0px;
+            margin: 0px;
+            text-decoration: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        body,
+        html {
+            color: #011C25;
+            font-size: 18px;
+            background: url(assets/images/backgrounds/08.webp) no-repeat center;
+            background-size: cover;
+            font-family: "Space Grotesk", -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+        /*Ripple*/
+        
+        .ripple {
+            width: 8px;
+            height: 8px;
+            opacity: 0;
+            transform: scale(0);
+            border-radius: 50%;
+            position: fixed;
+            z-index: 500000;
+            background: rgba(255, 255, 255, 0.3);
+        }
+        /*Animate Function*/
+        
+        .animate {
+            animation: ripple-mo .5s cubic-bezier(0, 0, 0.2, 1);
+        }
+        
+        @keyframes ripple-mo {
+            0% {
+                transform: scale(0);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(9.5);
+                opacity: 0;
+            }
+        }
+        
+        .box-coming-canvas {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        
+        .box-coming-canvas .inner-box {
+            width: 100%;
+        }
+        
+        .box-coming-canvas .logo {
+            margin-bottom: 2rem;
+        }
+        
+        .box-coming-canvas .logo img {
+            position: fixed;
+            bottom: 25px;
+            right: 15px;
+            max-width: 160px;
+            filter: invert(100%);
+        }
+        
+        .box-coming-canvas .title {
+            margin-bottom: 3rem;
+            color: #fff;
+            font-weight: 900;
+            font-size: 72px;
+        }
+        
+        .title::selection {
+            color: #ff0040;
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        .box-coming-canvas .box-sub {
+            display: flex;
+            justify-content: space-between;
+            max-width: 570px;
+            width: 100%;
+            margin: auto;
+            padding: 10px;
+            border-radius: 40px;
+            background-color: rgba(255, 255, 255, 0.192);
+            backdrop-filter: blur(10px);
+            margin-bottom: 4rem;
+            border: 1px solid rgba(43, 43, 43, 0.568);
+        }
+        
+        .box-coming-canvas .box-sub .form-control {
+            flex: 1;
+            padding: 7px 10px;
+            background-color: transparent;
+            border: 0px;
+            outline: 0px;
+            font-size: 1rem;
+        }
+        
+        .box-coming-canvas .box-sub .form-control,
+        .form-control::placeholder {
+            color: #fff;
+        }
+        
+        .form-control::selection {
+            color: white;
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        a {
+            user-select: none;
+        }
+        
+        .box-coming-canvas .box-sub .btn {
+            padding: 7px 20px;
+            background: linear-gradient(270deg, #ff0000 0%, #ff0075 100%);
+            box-shadow: 5px 5px 10px rgba(170, 170, 204, 0.5), -5px -5px 10px rgba(255, 255, 255, 0.1);
+            border-radius: 32px;
+            color: #fff;
+            border: 0px;
+            font-size: 20px;
+            font-weight: bold;
+            transition: 2s ease;
+            cursor: pointer;
+        }
+        
+        .box-coming-canvas .box-sub .btn:hover {
+            background: linear-gradient(-270deg, #ff0035 0%, #ff0035 100%);
+        }
+        
+        @media (max-width: 768px) {
+            html,
+            body {
+                font-size: 14px;
+            }
+            .box-coming-canvas {
+                padding: 15px;
+            }
+            .box-coming-canvas .title {
+                font-size: 48px;
+            }
+            .box-coming-canvas .box-sub .btn {
+                font-size: 16px;
+            }
+            .box-coming-canvas .logo img {
+                max-width: 40px;
+            }
+        }
+    </style>
 </head>
 
 <body>
-  <div class="ripple"></div>
-  <div class="box-coming-canvas">
-    <div class="inner-box">
-      <div class="logo">
-        <a href="./index">
-          <img class="lazy" src="https://img.icons8.com/external-simple-solid-edt.graphics/100/000000/external-Back-arrows-simple-solid-edt.graphics.png" />
-        </a>
-      </div>
-      <h1 class="title">Coming Soon</h1>
-      <div class="box-sub">
-        <input type="text" class="form-control" placeholder="Enter email adress">
-        <button class="btn btn-submit">Sign up</button>
-      </div>
+    <div class="ripple"></div>
+    <div class="box-coming-canvas">
+        <div class="inner-box">
+            <div class="logo">
+                <a href="./index">
+                    <img class="lazy" src="https://img.icons8.com/external-simple-solid-edt.graphics/100/000000/external-Back-arrows-simple-solid-edt.graphics.png" />
+                </a>
+            </div>
+            <h1 class="title">Coming Soon</h1>
+            <div class="box-sub">
+                <input type="text" class="form-control" placeholder="Enter email adress">
+                <button class="btn btn-submit">Sign up</button>
+            </div>
+        </div>
     </div>
-  </div>
 </body>
 
 </html>
