@@ -17,7 +17,7 @@ img {
     left: 0;
     width: 100%;
     height: 100%;
-    background: #080808;
+    background: #000;
     z-index: 9999;
     transition-property: all;
     transition-duration: .5s;
@@ -214,7 +214,7 @@ img {
     position: fixed;
     top: 0;
     left: 0;
-    background: #121212;
+    background: #000;
     float: left;
     box-shadow: 0px 8px 40px 2px black;
     /**rgba(252, 0, 73, 0.9);**/
@@ -222,7 +222,7 @@ img {
     height: 80px;
     overflow: hidden;
     z-index: 3000;
-    border-bottom: 2px solid #121212;
+    border-bottom: 2px solid #000;
     margin-bottom: -150px;
 }
 
@@ -386,7 +386,7 @@ img {
     z-index: 1000;
     width: 100%;
     height: var(100%-5px);
-    background: #121212;
+    background: #111;
     position: fixed;
     overflow: hidden;
     border-bottom: 5px solid #ff0020;
@@ -598,7 +598,7 @@ a {
 }
 
 body {
-    background: #121212;
+    background: #000;
     width: 100%;
     margin: 0;
     padding: 0;
