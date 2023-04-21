@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width, height=device-height,
+            minimum-scale=1, maximum-scale=1, user-scalable=no,
+            initial-scale=1">
+    <title>Login | Finixx</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css" integrity="sha512-oHDEc8Xed4hiW6CxD7qjbnI+B07vDdX7hEPTvn9pSZO1bcRqHp8mj9pyr+8RVC2GmtEfI2Bi9Ke9Ass0as+zpg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="stylesheet" href="assets/css/login.css" />
+    <script src="components/header.js"></script>
+</head>
+
+<body>
+    <c-nav></c-nav>
+    <div class="container" id="container">
+        <div class="form-container sign-up-container">
+            <form name="registration_form" id="registration_form" method="post" action="#" enctype="multipart/form-data">
+                <h1>Create Account</h1>
+                <div class="social-container">
+                    <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social"><i class="fab
+                                fa-google-plus-g"></i></a>
+                    <a href="#" class="social"><i class="fab
+                                fa-linkedin-in"></i></a>
+                </div>
+                <span>or use your email for registration</span>
+                <input type="text" placeholder="Name" />
+                <input type="email" placeholder="Email" />
+                <input type="password" placeholder="Password" />
+                <button type="button" id="register" name="register">Sign Up</button>
+                <button class="ghost" id="signIn1">Sign In</button>
+            </form>
+        </div>
+        <div class="form-container sign-in-container">
+            <form name="login_form" id="login_form" method="post" action="#" enctype="multipart/form-data">
+                <h1>Sign in</h1>
+                <div class="social-container">
+                    <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social"><i class="fab
+                                fa-google-plus-g"></i></a>
+                    <a href="#" class="social"><i class="fab
+                                fa-linkedin-in"></i></a>
+                </div>
+                <span>or use your account</span>
+                <input type="email" placeholder="Email" />
+                <input type="password" placeholder="Password" />
+                <a href="#">Forgot your password?</a>
+                <button id="signIn1">Sign In</button>
+                <button class="ghost" id="signUp1">Sign Up</button>
+            </form>
+        </div>
+        <div class="overlay-container">
+            <div class="overlay">
+                <div class="overlay-panel overlay-left">
+                    <h1>Welcome Back!</h1>
+                    <p>To keep connected with us please login with your personal info</p>
+                    <button class="ghost" id="signIn2">Sign In</button>
+                </div>
+                <div class="overlay-panel overlay-right">
+                    <h1>Hello, Friend!</h1>
+                    <p>Enter your personal details and start journey with us</p>
+                    <button class="ghost" id="signUp2">Sign Up</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const signUpButton1 = document.getElementById('signUp1');
+        const signInButton1 = document.getElementById('signIn1');
+        const signUpButton2 = document.getElementById('signUp2');
+        const signInButton2 = document.getElementById('signIn2');
+        const container = document.getElementById('container');
+
+        signUpButton1.addEventListener('click', () => {
+            container.classList.add("right-panel-active");
+        });
+
+        signInButton1.addEventListener('click', () => {
+            container.classList.remove("right-panel-active");
+        });
+
+        signUpButton2.addEventListener('click', () => {
+            container.classList.add("right-panel-active");
+        });
+
+        signInButton2.addEventListener('click', () => {
+            container.classList.remove("right-panel-active");
+        });
+    </script>
+</body>
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-app.js"; import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-analytics.js"; import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword,
+    signOut } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-auth.js"; const firebaseConfig = { apiKey: "AIzaSyDScn7cDD80QaRLGnGIgCf52quSWLMnYQU", authDomain: "login-1807.firebaseapp.com", projectId: "login-1807", storageBucket: "login-1807.appspot.com",
+    messagingSenderId: "397739700428", appId: "1:397739700428:web:7ef2e6ed32a66837639269", measurementId: "G-ZB1WR118BQ" }; const app = initializeApp(firebaseConfig); const analytics = getAnalytics(app); const auth = getAuth(); console.log(app); document.getElementById("signUp2").addEventListener("click",
+    function() { var email = document.getElementById("email").value; var password = document.getElementById("password").value; createUserWithEmailAndPassword(auth, email, password) .then((userCredential) => { const user = userCredential.user; console.log(user);
+    alert("Registration successfully!!"); }) .catch((error) => { const errorCode = error.code; const errorMessage = error.message; console.log(errorMessage); alert(error); }); }); document.getElementById("signIn1").addEventListener("click", function()
+    { var email = document.getElementById("login_email").value; var password = document.getElementById("login_password").value; signInWithEmailAndPassword(auth, email, password) .then((userCredential) => { const user = userCredential.user; console.log(user);
+    alert(user.email+" Login successfully!!!"); document.getElementById('logout').style.display = 'block'; }) .catch((error) => { const errorCode = error.code; const errorMessage = error.message; console.log(errorMessage); alert(errorMessage); }); });
+    document.getElementById("logout").addEventListener("click", function() { signOut(auth).then(() => { console.log('Sign-out successful.'); alert('Sign-out successful.'); document.getElementById('logout').style.display = 'none'; }).catch((error) => {
+    console.log('An error happened.'); }); });
+</script>
+
+</html>
