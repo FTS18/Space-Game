@@ -25,3 +25,8 @@ function loadStyle() {
 };
 window.onload = loadStyle();
 */
+        //Slide Up on Page Load
+slideTimer = setInterval(function() {
+  $('.loading-screen').slideUp();
+  $('body').removeClass('disabledScroll');
+}, 1775); //3500
