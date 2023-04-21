@@ -12,7 +12,7 @@ img {
 }
 
 html {
-    background: #111;
+    background: #080808;
 }
 
 .loading-screen {
@@ -50,9 +50,10 @@ html {
     text-transform: uppercase;
     font-weight: 900;
     color: #fff;
-    animation: counter 3.7s forwards ease-in-out;
+    animation: counter 1.6s forwards ease-in-out;
     counter-reset: num var(--num);
     padding: 2rem;
+    -webkit-animation: counter 1.6s forwards ease-in-out;
 }
 
 .loader::before {
@@ -193,15 +194,14 @@ html {
     top: 52vh;
     left: 0;
     background: rgb(0, 0, 0);
-    background: linear-gradient(180deg, #111 0%, #121212 100%);
+    background: linear-gradient(180deg, #080808 0%, #121212 100%);
     width: 100%;
     height: auto;
     padding-bottom: 5vh;
     z-index: 85;
-    border-radius: 15px;
     margin-top: 20px;
-    border-bottom-left-radius: 0px;
-    border-bottom-right-radius: 0px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
     border-bottom: 0px;
     border-left: 0px;
     border-right: 0px;
@@ -401,9 +401,9 @@ html {
 }
 
 .menuContents {
-    top: 70%;
+    top: 55%;
     left: 30px;
-    width: 300px;
+    width: 310px;
     height: 50%;
     position: relative;
     transform: translateY(-50%);
@@ -436,11 +436,15 @@ html {
     color: #fff;
     font-weight: 900;
     transition: all 0.25s ease-in-out;
-    transform: scale(1.15);
+    transform: scale(1.2);
     letter-spacing: 3px;
     border-left: 8px solid #ff0025;
-    margin-left: 10px;
+    margin-left: 20px;
     padding-top: 2px;
+    -webkit-transform: scale(1.2);
+    -moz-transform: scale(1.2);
+    -ms-transform: scale(1.2);
+    -o-transform: scale(1.2);
 }
 
 .card {
