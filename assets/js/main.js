@@ -14,6 +14,14 @@ var drawRipple = function(ev) {
 
 //Ripple Triggers
 window.addEventListener("click", drawRipple);
+
+
+//Slide Up on Page Load
+slideTimer = setInterval(function() {
+    $('.loading-screen').slideUp();
+    $('body').removeClass('disabledScroll');
+}, 1775); //3500
+
 /*
 function loadStyle() {
   var styles = document.createElement('link');
