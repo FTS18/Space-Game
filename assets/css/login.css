@@ -198,8 +198,11 @@ input {
 
 .overlay {
     background: #41ffc0;
-    background: -webkit-linear-gradient(to right, #00ffbf, #00ffaa);
-    background: linear-gradient(to right, #ff0146, #4dffff);
+    background: rgb(214, 0, 0);
+    background: -moz-linear-gradient(90deg, rgba(214, 0, 0, 1) 0%, rgba(255, 0, 46, 1) 67%, rgba(255, 0, 106, 1) 100%);
+    background: -webkit-linear-gradient(90deg, rgba(214, 0, 0, 1) 0%, rgba(255, 0, 46, 1) 67%, rgba(255, 0, 106, 1) 100%);
+    background: linear-gradient(90deg, rgba(214, 0, 0, 1) 0%, rgba(255, 0, 46, 1) 67%, rgba(255, 0, 106, 1) 100%);
+    filter: progid: DXImageTransform.Microsoft.gradient(startColorstr="#d60000", endColorstr="#ff006a", GradientType=1);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: 0 0;

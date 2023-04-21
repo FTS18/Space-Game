@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css" integrity="sha512-oHDEc8Xed4hiW6CxD7qjbnI+B07vDdX7hEPTvn9pSZO1bcRqHp8mj9pyr+8RVC2GmtEfI2Bi9Ke9Ass0as+zpg==" crossorigin="anonymous" referrerpolicy="no-referrer">
     <link rel="stylesheet" href="assets/css/login.css" />
     <script src="components/header.js"></script>
+    <script type="text/javascript" src="assets/js/data.js"></script>
 </head>
 
 <body>
@@ -40,7 +41,8 @@
             </form>
         </div>
         <div class="form-container sign-in-container">
-            <form name="login_form" id="login_form" method="post" action="#" enctype="multipart/form-data">
+            <!---->
+            <form name="login_form" id="login_form" action="javascript:void()" onsubmit='login()' enctype="multipart/form-data">
                 <h1>Sign in</h1>
                 <div class="social-container">
                     <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
@@ -50,8 +52,8 @@
                                 fa-linkedin-in"></i></a>
                 </div>
                 <span>or use your account</span>
-                <input type="email" placeholder="Email" />
-                <input type="password" placeholder="Password" />
+                <input type="text" name="uname" required id='username' placeholder="Email" />
+                <input type="password" name="psw" required id='password' placeholder="Password" />
                 <a href="#">Forgot your password?</a>
                 <button id="signIn1">Sign In</button>
                 <button class="ghost" id="signUp1">Sign Up</button>
@@ -95,9 +97,23 @@
         signInButton2.addEventListener('click', () => {
             container.classList.remove("right-panel-active");
         });
+
+
+        function login() {
+            var entered_name = document.getElementById('username').value;
+            var entered_pass = document.getElementById('password').value;
+            var name = entered_name.charAt(0).toUpperCase() + entered_name.slice(1);
+
+            if ((names.includes(entered_name) & passwords.includes(entered_pass)) & (names.indexOf(entered_name) === passwords.indexOf(entered_pass)) & (names.indexOf(entered_name) !== -1)) {
+                window.alert('Welcome ' + name);
+                window.open(window.open = "index.html")
+            } else {
+                container.classList.add("right-panel-active");
+            }
+        }
     </script>
 </body>
-<script type="module">
+<!--<script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-app.js"; import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-analytics.js"; import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword,
     signOut } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-auth.js"; const firebaseConfig = { apiKey: "AIzaSyDScn7cDD80QaRLGnGIgCf52quSWLMnYQU", authDomain: "login-1807.firebaseapp.com", projectId: "login-1807", storageBucket: "login-1807.appspot.com",
     messagingSenderId: "397739700428", appId: "1:397739700428:web:7ef2e6ed32a66837639269", measurementId: "G-ZB1WR118BQ" }; const app = initializeApp(firebaseConfig); const analytics = getAnalytics(app); const auth = getAuth(); console.log(app); document.getElementById("signUp2").addEventListener("click",
@@ -107,6 +123,6 @@
     alert(user.email+" Login successfully!!!"); document.getElementById('logout').style.display = 'block'; }) .catch((error) => { const errorCode = error.code; const errorMessage = error.message; console.log(errorMessage); alert(errorMessage); }); });
     document.getElementById("logout").addEventListener("click", function() { signOut(auth).then(() => { console.log('Sign-out successful.'); alert('Sign-out successful.'); document.getElementById('logout').style.display = 'none'; }).catch((error) => {
     console.log('An error happened.'); }); });
-</script>
+</script>-->
 
 </html>
