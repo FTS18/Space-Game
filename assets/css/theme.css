@@ -13,7 +13,7 @@ img {
 
 body::-webkit-scrollbar {
     width: 14px;
-    background: #111111;
+    background: #0f0f0f;
 }
 
 body::-webkit-scrollbar-track {
@@ -21,8 +21,8 @@ body::-webkit-scrollbar-track {
 }
 
 body::-webkit-scrollbar-thumb {
-    background-color: #383838;
-    border: 3.8px solid #111111;
+    background-color: #2e2e2e;
+    border: 3.8px solid #0f0f0f;
     border-radius: 6px;
     -webkit-border-radius: 6px;
     -moz-border-radius: 6px;
