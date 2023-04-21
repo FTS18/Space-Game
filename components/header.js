@@ -366,5 +366,4 @@ class Header extends HTMLElement {
         shadowRoot.appendChild(headerTemplate.content);
     }
 }
-
 customElements.define('c-nav', Header);

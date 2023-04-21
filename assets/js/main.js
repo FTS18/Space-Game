@@ -1,4 +1,5 @@
 console.log('Hello World!');
+
 //Ripple Event Handler
 var drawRipple = function(ev) {
     var x = ev.clientX;
@@ -13,8 +14,6 @@ var drawRipple = function(ev) {
 
 //Ripple Triggers
 window.addEventListener("click", drawRipple);
-
-
 /*
 function loadStyle() {
   var styles = document.createElement('link');

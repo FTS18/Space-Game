@@ -2,79 +2,79 @@
 <html lang="en" dir="ltr">
 
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimum-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-  <meta name="theme-color" content="#000">
-  <meta name="msapplication-navbutton-color" content="#000">
-  <meta name="apple-mobile-web-app-status-bar-style" content="#000">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="../../../assets/css/theme.css" type="text/css" media="all" />
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-  <title>PacMan | Web</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="../../../assets/js/pacman.js" charset="utf-8"></script>
-  <script src="../../../assets/js/main.js"></script>
-  <script>
-   //NavBar Menu Code
-     $(function() {
-       $("html").on("click", function(e) {
-         let $t = $(e.target),
-           $myLinks = $("#menu"),
-           $toggleMenu = $(".toggle");
-         if ($t.is($myLinks) || $myLinks.has($t).length) {
-           //clicked in the menu. do nothing
-         } else if ($t.is($toggleMenu) || $toggleMenu.has($t).length) {
-           $('.menuBtn').toggleClass('active')
-           $('.menu').toggleClass('active')
-           $('.page').toggleClass('disabledScroll')
-           $('.logo').toggleClass('hide')
-         } else {
-           $('.menuBtn').removeClass('active')
-           $('.menu').removeClass('active')
-           $('.page').removeClass('disabledScroll')
-           $('.logo').removeClass('hide')
-         }
-       })
-     });
-  </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="theme-color" content="#000">
+    <meta name="msapplication-navbutton-color" content="#000">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#000">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="../../../assets/css/theme.css" type="text/css" media="all" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <title>PacMan | Web</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="../../../assets/js/pacman.js" charset="utf-8"></script>
+    <script src="../../../assets/js/main.js"></script>
+    <script>
+        //NavBar Menu Code
+        $(function() {
+            $("html").on("click", function(e) {
+                let $t = $(e.target),
+                    $myLinks = $("#menu"),
+                    $toggleMenu = $(".toggle");
+                if ($t.is($myLinks) || $myLinks.has($t).length) {
+                    //clicked in the menu. do nothing
+                } else if ($t.is($toggleMenu) || $toggleMenu.has($t).length) {
+                    $('.menuBtn').toggleClass('active')
+                    $('.menu').toggleClass('active')
+                    $('.page').toggleClass('disabledScroll')
+                    $('.logo').toggleClass('hide')
+                } else {
+                    $('.menuBtn').removeClass('active')
+                    $('.menu').removeClass('active')
+                    $('.page').removeClass('disabledScroll')
+                    $('.logo').removeClass('hide')
+                }
+            })
+        });
+    </script>
 </head>
 
 <body class="disabledScroll">
-  <div class="loading-screen">
-    <div class="loader"></div>
-    <div class="anim"></div>
-  </div>
-  <div class="ripple"></div>
-  <nav class="nav">
-    <div>
-      <img class="pacman-logo" href="#" src="https://upload.wikimedia.org/wikipedia/fr/thumb/a/a2/Pac-Man_Logo.svg/langfr-1920px-Pac-Man_Logo.svg.png">
+    <div class="loading-screen">
+        <div class="loader"></div>
+        <div class="anim"></div>
     </div>
-    <a class="toggle" style="color: #f5ffe8" href="javascript:void(0)">
-      <span class="menuBtn"><i class="material-icons">short_text</i></span>
-      <span class="menuBtn"><i class="material-icons">close</i></span>
-    </a>
-    <!--<a class="theme" href="#">
+    <div class="ripple"></div>
+    <nav class="nav">
+        <div>
+            <img alt="" class="pacman-logo" href="#" src="https://upload.wikimedia.org/wikipedia/fr/thumb/a/a2/Pac-Man_Logo.svg/langfr-1920px-Pac-Man_Logo.svg.png">
+        </div>
+        <a class="toggle" style="color: #f5ffe8" href="javascript:void(0)">
+            <span class="menuBtn"><i class="material-icons">short_text</i></span>
+            <span class="menuBtn"><i class="material-icons">close</i></span>
+        </a>
+        <!--<a class="theme" href="#">
         <i class="fas fa-adjust"></i>
         </a>-->
-    <div class="menu">
-      <div class="menuContents">
-        <a href="../../../index">Home</a>
-        <a href="#">Register</a>
-        <a href="#">Explore</a>
-        <a href="#">Contribute</a>
-        <a href="#">Help Us</a>
-      </div>
+        <div class="menu">
+            <div class="menuContents">
+                <a href="../../../index">Home</a>
+                <a href="#">Register</a>
+                <a href="#">Explore</a>
+                <a href="#">Contribute</a>
+                <a href="#">Help Us</a>
+            </div>
+        </div>
+    </nav>
+    <!--PacMan Code-->
+    <div class="game">
+        <div class="grid"></div>
     </div>
-  </nav>
-  <!--PacMan Code-->
-  <div class="game">
-    <div class="grid"></div>
-  </div>
-  <h3>Score:<span id="score"></span></h3>
+    <h3>Score:<span id="score"></span></h3>
 </body>
 
 </html>
