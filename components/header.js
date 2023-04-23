@@ -148,7 +148,7 @@ nav .content .links{
     top: 3px;
     left: 0px;
     position: relative;
-    width: 140px;
+    width: 120px;
     height: auto;
     -webkit-tap-highlight-color: transparent;
     z-index: 10;
