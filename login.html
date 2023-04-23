@@ -52,7 +52,7 @@
                                 fa-linkedin-in"></i></a>
                 </div>
                 <span>or use your account</span>
-                <input type="text" name="uname" required id='username' placeholder="User Name" />
+                <input type="text" name="uname" required id='username' placeholder="User Name" style="text-transform: lowercase"/>
                 <input type="password" name="psw" required id='password' placeholder="Password" />
                 <a href="#">Forgot your password?</a>
                 <button id="signIn1">Sign In</button>
@@ -104,7 +104,7 @@
             var entered_pass = document.getElementById('password').value;
             var name = entered_name.charAt(0).toUpperCase() + entered_name.slice(1);
 
-            if ((names.includes(entered_name.toLowerCase()) & passwords.includes(entered_pass)) & (names.indexOf(entered_name) === passwords.indexOf(entered_pass)) & (names.indexOf(entered_name) !== -1)) {
+            if ((names.includes(entered_name) & passwords.includes(entered_pass)) & (names.indexOf(entered_name) === passwords.indexOf(entered_pass)) & (names.indexOf(entered_name) !== -1)) {
                 window.alert('Welcome ' + name);
                 window.open(window.open = "index_real.html")
             } else {
