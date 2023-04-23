@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="description" content="Come and Play!!!">
+    <meta name="theme-color" content="#000">
+    <meta name="msapplication-navbutton-color" content="#000">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#000">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space%20Grotesk:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css" integrity="sha512-q3eWabyZPc1XTCmF+8/LuE1ozpg5xxn7iO89yfSOd5/oKvyqLngoNGsx8jq92Y8eXJ/IRxQbEC+FGSYxtk2oiw==" crossorigin="anonymous" referrerpolicy="no-referrer" />-->
+    <script src=" https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <title>Finixx | Let's Play</title>
+    <link rel="stylesheet " href="/assets/css/style.css ">
+    <link rel="stylesheet " href="/assets/css/theme.css ">
+    <link rel="stylesheet " href="https://unpkg.com/swiper@7/swiper-bundle.min.css " />
+    <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script>
+        //NavBar Menu Code
+        $(function() {
+            $("html").on("click", function(e) {
+                let $t = $(e.target),
+                    $myLinks = $("#menu"),
+                    $toggleMenu = $(".toggle");
+                if ($t.is($myLinks) || $myLinks.has($t).length) {
+                    //clicked in the menu. do nothing
+                } else if ($t.is($toggleMenu) || $toggleMenu.has($t).length) {
+                    $('.menuBtn').toggleClass('active')
+                    $('.menu').toggleClass('active')
+                    $('.page').toggleClass('disabledScroll')
+                    $('.logo').toggleClass('hide')
+                    $('body').addClass('disabledScroll')
+                } else {
+                    $('.menuBtn').removeClass('active')
+                    $('.menu').removeClass('active')
+                    $('.page').removeClass('disabledScroll')
+                    $('.logo').removeClass('hide')
+                    $('body').removeClass('disabledScroll')
+                }
+            })
+        });
+    </script>
+</head>
+
+<body class="disabledScroll" text="white ">
+    <div class="loading-screen">
+        <div class="loader"></div>
+        <div class="anim"></div>
+    </div>
+    <div class="ripple"></div>
+    <header class="nav" id="nav">
+        <a class="logo " href="# ">
+            <img id="svg" alt="" src="assets/images/logo.svg" />
+        </a>
+        <a class="toggle " style="color: #f5ffe8 " href="javascript:void()">
+            <span class="menuBtn "><i class="material-icons ">short_text</i></span>
+            <span class="menuBtn "><i class="material-icons ">close</i></span>
+        </a>
+        <div class="menu" id="menu">
+            <div class="menuContents ">
+                <a href="index">Home</a>
+                <a href="login">Login</a>
+                <a href="https://github.com/FTS18/Space-Game">Contribute</a>
+                <a href="https://github.com/fts18">Ananay</a>
+                <a href="https://github.com/Arunjay126">Arunjay</a>
+            </div>
+        </div>
+        <!-- <a class="theme" href="# ">
+        <i class="fas fa-adjust "></i>
+        </a>-->
+    </header>
+    <main class="page">
+        <section style="background: #121212;" class="welcome-div">
+            <div class="overlay">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <img alt="" class="lazy" src="assets/images/backgrounds/22.webp">
+                    </div>
+                    <div class="swiper-slide">
+                        <img alt="" class="lazy" src="assets/images/backgrounds/15.webp">
+                    </div>
+                    <div class="swiper-slide">
+                        <img alt="" class="lazy" src="assets/images/backgrounds/13.webp">
+                    </div>
+                    <div class="swiper-slide">
+                        <img alt="" class="lazy" src="assets/images/backgrounds/20.webp">
+                    </div>
+                    <div class="swiper-slide">
+                        <img alt="" class="lazy" src="assets/images/backgrounds/07.webp">
+                    </div>
+                    <div class="swiper-slide">
+                        <img alt="" class="lazy" src="assets/images/backgrounds/25.webp">
+                    </div>
+                </div>
+            </div>
+            <H1>FINIXX</H1>
+        </section>
+        <section class="main-content">
+            <div class="games">
+                <div class="pc group">
+                    <!--<details><summary>-->
+                    <h3>Desktop Games</h3>
+                    <!--</summary>-->
+                    <a href="games/desktop/space-fire/index">
+                        <div class="card c1">
+                            <div class="text">Space Fire</div>
+                        </div>
+                    </a>
+                    <a href="games/pacman/index">
+                        <div class="card c2">
+                            <div class="text">PacMan</div>
+                        </div>
+                    </a>
+                    <a href="games/ping-pong/index">
+                        <div class="card c3">
+                            <div class="text">Ping Pong</div>
+                        </div>
+                    </a>
+                    <a href="../coming-soon">
+                        <div class="card c4">
+                            <div class="text">Tic Tac Toe*</div>
+                        </div>
+                    </a>
+                    <!--</details>-->
+                </div>
+                <div class="android group">
+                    <h3>Android Games</h3>
+                    <a href="games/pacman/index">
+                        <div class="card c5">
+                            <div class="text">PacMan</div>
+                        </div>
+                    </a>
+                    <a href="../coming-soon">
+                        <div class="card c6">
+                            <div class="text">Tic Tac Toe*</div>
+                        </div>
+                    </a>
+                    <a href="games/android/space-fire/index">
+                        <div class="card c7">
+                            <div class="text">Space Fire</div>
+                        </div>
+                    </a>
+                    <a href="games/ping-pong/index">
+                        <div class="card c8">
+                            <div class="text">Pong Game</div>
+                        </div>
+                    </a>
+                </div>
+                <div class="web group">
+                    <h3>Web Games</h3>
+                    <a href="games/ping-pong/index">
+                        <div class="card c9">
+                            <div class="text">Ping Pong</div>
+                        </div>
+                    </a>
+                    <a href="games/pacman/index">
+                        <div class="card c10">
+                            <div class="text">PacMan</div>
+                        </div>
+                    </a>
+                    <a href="/coming-soon">
+                        <div class="card c11">
+                            <div class="text cs">Coming Soon...</div>
+                        </div>
+                    </a>
+                    <a href="/coming-soon">
+                        <div class="card c12">
+                            <div class="text cs">Coming Soon...</div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            </div>
+            <section class="footer">
+                <div class="bottom1">
+                    <span class="credit">Created By <a href="https://github.com/fts18">Ananay</a> and <a href="https://github.com/Arunjay126">Arunjay</a> | </span>
+                    <span class="far fa-copyright"></span><span> 2023 All rights reserved.</span>
+                </div>
+            </section>
+        </section>
+    </main>
+    <script>
+        var swiper = new Swiper(".overlay", {
+            spaceBetween: 0,
+            centeredSlides: true,
+            loop: true,
+            autoplay: {
+                delay: 3500,
+            },
+        });
+    </script>
+</body>
+
+</html>
