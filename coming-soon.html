@@ -12,6 +12,9 @@
     <script src="assets/js/main.js"></script>
     <!--<script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.8.1/dist/lazyload.min.js"></script>-->
     <!-- Google Font-->
+    <script src="components/header.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
     <link href="https://fonts.googleapis.com/css2?family=Space%20Grotesk:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         * {
@@ -29,6 +32,14 @@
             background: url(assets/images/backgrounds/08.webp) no-repeat center;
             background-size: cover;
             font-family: "Space Grotesk", -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+        
+        c-nav {
+            z-index: 1000;
+            overflow: hidden;
+            position: fixed;
+            top: 0;
+            left: 0;
         }
         /*Ripple*/
         
@@ -171,6 +182,7 @@
 </head>
 
 <body>
+    <c-nav></c-nav>
     <div class="ripple"></div>
     <div class="box-coming-canvas">
         <div class="inner-box">

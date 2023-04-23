@@ -32,7 +32,7 @@ body::-webkit-scrollbar-thumb {
     -o-border-radius: 6px;
 }
 .wrapper{
-  background: #121212;
+  background: #000;
   position: fixed;
   width: 100%;
 }
@@ -76,10 +76,10 @@ nav .content .links{
 }
 .content .links li a:hover,
 .content .links li label:hover{
-  background: #323c4e;
+  background: #111;
 }
 .content .links li .active{
-  color: #03fc7f:;
+  color: #ff0040;
 }
 .wrapper .search-icon,
 .wrapper .menu-icon{
@@ -117,6 +117,8 @@ nav .content .links{
   outline: none;
   font-size: 17px;
   color: #e7e7e7;
+  position: relative;
+  z-index: 10000;
   background: #222;
   padding: 0 100px 0 15px;
 }
@@ -134,6 +136,7 @@ nav .content .links{
   background: #121212;
   border: none;
   outline: none;
+  z-index: 10001;
   color: #e7e7e7;
   font-size: 20px;
   cursor: pointer;
@@ -141,11 +144,29 @@ nav .content .links{
 .wrapper input[type="checkbox"]{
   display: none;
 }
+.logo {
+    top: 3px;
+    left: 0px;
+    position: relative;
+    width: 140px;
+    height: auto;
+    -webkit-tap-highlight-color: transparent;
+    z-index: 10;
+    float: left;
+    transition: .5s ease-in-out;
+}
+
+#svg {
+  position: relative;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+}
 
 /* Dropdown Menu code start */
 .content .links ul{
   position: absolute;
-  background: #121212;
+  background: #000;
   top: 80px;
   z-index: -1;
   opacity: 0;
@@ -165,7 +186,7 @@ nav .content .links{
 }
 .content .links .active{
   color: #ff0040;
-  background: #333;
+  background: #222;
   margin-left: 15px;
   margin-right: 20px;
 }
@@ -211,7 +232,7 @@ nav .content .links{
   nav .content .links{
     display: block;
     position: fixed;
-    background: #121212;
+    background: #000;
     height: 100%;
     width: 100%;
     top: 70px;
@@ -238,7 +259,7 @@ nav .content .links{
   }
   .content .links .active{
     color: #ff0040;
-    background: #333;
+    background: #111;
     margin:0;
   }
   .content .links li a.desktop-link{
@@ -310,28 +331,21 @@ nav .content .links{
   <input type="checkbox" id="show-menu">
   <label for="show-menu" class="menu-icon"><i class="fas fa-bars"></i></label>
   <div class="content">
-  <div class="logo"><a href="index.html">Finixx</a></div>
+  <div class="logo">
+  <a class="logo " href="index.html">
+    <img id="svg" alt="" src="assets/images/logo.png" />
+  </a>
+  </div>
     <ul class="links">
       <li><a href="index.html">Home</a></li>
-      <li>
-        <a href="#" class="desktop-link">Explore</a>
-        <input type="checkbox" id="show-features">
-        <label for="show-features">Explore</label>
-        <ul>
-          <li><a href="finixx.netlify.app">Finixx</a></li>
-          <li><a href="radioo.netlify.app">Musify</a></li>
-          <li><a href="#">Python</a></li>
-          <li><a href="#">Weather</a></li>
-        </ul>
-      </li>
       <li>
         <a href="#" class="desktop-link">Connect</a>
         <input type="checkbox" id="show-services">
         <label for="show-services">Connect</label>
         <ul>
-          <li><a href="#">Mail Us</a></li>
-          <li><a href="#">Chat</a></li>
-          <li>
+          <li><a href="mailto:teamfinixx@gmail.com">Mail Us</a></li>
+          <li><a href="https://chat.whatsapp.com/ECHJEEU1w901D89UMd0c3m">Discuss</a></li>
+          <!--<li>
             <a href="#" class="desktop-link">Social</a>
             <input type="checkbox" id="show-items">
             <label for="show-items">Social</label>
@@ -340,10 +354,12 @@ nav .content .links{
             <li><a href="#">Instagram</a></li>
             <li><a href="#">Twitter</a></li>
             </ul>
-          </li>
+          </li>-->
         </ul>
       </li>
-      <li><a href="#">Feedback</a></li>
+      <!-- class desktop-link to show only in desktop-->
+      <li><a href="coming-soon.html">Explore</a></li>
+      <li><a href="coming-soon.html">Feedback</a></li>
       <li><a class="active" href="login.html">Login</a></li>
     </ul>
   </div>

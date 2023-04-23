@@ -22,6 +22,29 @@ slideTimer = setInterval(function() {
     $('body').removeClass('disabledScroll');
 }, 1775); //3500
 
+//NavBar Menu Code
+document.addEventListener("DOMContentLoaded", () => {
+    $("html").on("click", function(e) {
+        let $t = $(e.target),
+            $myLinks = document.getElementById("menu"),
+            $toggleMenu = document.getElementByClassName("toggle");
+        if ($t.is($myLinks) || $myLinks.has($t).length) {
+
+        } else if ($t.is($toggleMenu) || $toggleMenu.has($t).length) {
+            document.getElementByClassName("menuBtn").classList.toggle("active")
+            document.getElementByClassName("menu").classList.toggle("active")
+            document.getElementByClassName("page").classList.toggle("disabledScroll")
+            document.getElementByClassName("logo").classList.toggle("hide")
+            $('body').classList.add("disabledScroll")
+        } else {
+            document.getElementByClassName("menuBtn").classList.remove("active")
+            document.getElementByClassName("menu").classList.remove("active")
+            document.getElementByClassName("page").classList.remove("disabledScroll")
+            document.getElementByClassName("logo").classList.remove("hide")
+            $('body').classList.remove("disabledScroll")
+        }
+    })
+});
 /*
 function loadStyle() {
   var styles = document.createElement('link');

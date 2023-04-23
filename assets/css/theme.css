@@ -16,6 +16,14 @@ body {
     transition: 1s ease-in-out;
 }
 
+c-nav {
+    z-index: 1000;
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
 .page.disabledScroll {
     overflow: hidden;
     opacity: 0.5;
@@ -289,23 +297,6 @@ body::-webkit-scrollbar-thumb {
     -o-transform: translateY(-100%);
     z-index: 3000;
     overflow: hidden
-}
-
-.logo {
-    top: -65.5px;
-    left: -55px;
-    position: relative;
-    width: 220px;
-    height: 220px;
-    -webkit-tap-highlight-color: transparent;
-    z-index: 100;
-    float: left;
-    transition: .5s ease-in-out;
-}
-
-#svg {
-    width: 100%;
-    height: 100%;
 }
 
 .hide {
