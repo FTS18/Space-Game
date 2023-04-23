@@ -345,20 +345,19 @@ nav .content .links{
         <ul>
           <li><a href="mailto:teamfinixx@gmail.com">Mail Us</a></li>
           <li><a href="https://chat.whatsapp.com/ECHJEEU1w901D89UMd0c3m">Discuss</a></li>
-          <!--<li>
-            <a href="#" class="desktop-link">Social</a>
-            <input type="checkbox" id="show-items">
-            <label for="show-items">Social</label>
-            <ul>
-            <li><a href="#">Youtube</a></li>
-            <li><a href="#">Instagram</a></li>
-            <li><a href="#">Twitter</a></li>
-            </ul>
-          </li>-->
+          <!---->
         </ul>
       </li>
       <!-- class desktop-link to show only in desktop-->
       <li><a href="coming-soon.html">Explore</a></li>
+      <li><a href="#" class="desktop-link">Developers</a>
+      <input type="checkbox" id="show-items">
+      <label for="show-items">Developers</label>
+      <ul>
+      <li><a href="https://github.com/fts18">Ananay</a></li>
+      <li><a href="https://github.com/Arunjay126">Arunjay</a></li>
+      </ul>
+    </li>
       <li><a href="coming-soon.html">Feedback</a></li>
       <li><a class="active" href="login.html">Login</a></li>
     </ul>
