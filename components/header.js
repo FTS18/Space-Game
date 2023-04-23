@@ -252,7 +252,7 @@ nav .content .links{
   .content .links li a,
   .content .links li label{
     line-height: 40px;
-    font-size: 20px;
+    font-size: 16px;
     display: block;
     padding: 8px 18px;
     cursor: pointer;
