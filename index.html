@@ -50,7 +50,7 @@
     </script>
 </head>
 
-<body class="disabledScroll" text="white " onclick = 'log()'>
+<body class="disabledScroll" text="white ">
     <div class="loading-screen">
         <div class="loader"></div>
         <div class="anim"></div>
@@ -104,7 +104,7 @@
             <H1>FINIXX</H1>
         </section>
         <section class="main-content">
-            <div class="games">
+            <div class="games" onclick="log()">
                 <div class="pc group">
                     <!--<details><summary>-->
                     <h3>Desktop Games</h3>
@@ -196,8 +196,9 @@
                 delay: 3500,
             },
         });
+
         function log() {
-            window.open(window.open = "login.html")
+            window.location.href = "login.html"
         };
     </script>
 </body>
