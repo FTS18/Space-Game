@@ -176,11 +176,11 @@
                                 <input type="text" class="f-control" id="name" placeholder="Enter name" />
                             </div>
                              !-->
-                            <div class="f-group">
+                            <div class="f-group" id = 'f-hide'>
                                 <h5 for="message">Message</h5>
                                 <textarea class="f-control" id="message" rows="6" placeholder="Enter the message here"></textarea>
                             </div>
-                            <button class="btn-primary" onclick="sendMail()">Submit</button>
+                            <button class="btn-primary" onclick="#">Submit</button>
                         </div>
                     </div>
                 </section>
@@ -201,6 +201,9 @@
                     delay: 3500,
                 },
             });
+            function hide(){
+            document.getElementById('f-hide').innerHTML = 'Thank you for your feedback';
+            }
         </script>
     </body>
 
