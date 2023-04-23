@@ -54,6 +54,17 @@
         (function() {
             emailjs.init("Kz9EVkEtNSW1p6E0Y");
         })();
+        if (navigator.share) {
+            navigator.share({
+                    title: 'Finixx | Games',
+                    text: "Come, Let's Play",
+                    url: 'https://finixx.netlify.app',
+                })
+                .then(() => console.log('Successful share'))
+                .catch((error) => console.log('Error sharing', error));
+        } else {
+            console.log(`Your system doesn't support sharing files.`);
+        }
     </script>
     </head>
 
