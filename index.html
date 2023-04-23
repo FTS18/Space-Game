@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
+<>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, minimum-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0,maximum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <meta name="description" content="Come and Play!!!">
     <meta name="theme-color" content="#000">
@@ -47,141 +47,163 @@
     <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
     <script src="assets/js/main.js"></script>
     <script src="components/header.js"></script>
-    <script src=" https://code.jquery.com/jquery-3.6.0.min.js"></script>
-</head>
-
-<body class="disabledScroll" text="white ">
-    <div class="loading-screen">
-        <div class="loader"></div>
-        <div class="anim"></div>
-    </div>
-    <div class="ripple"></div>
-    <c-nav></c-nav>
-    <main class="page">
-        <section style="background: #121212;" class="welcome-div">
-            <div class="overlay">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                        <img alt="" class="lazy" src="assets/images/backgrounds/22.webp">
-                    </div>
-                    <div class="swiper-slide">
-                        <img alt="" class="lazy" src="assets/images/backgrounds/15.webp">
-                    </div>
-                    <div class="swiper-slide">
-                        <img alt="" class="lazy" src="assets/images/backgrounds/13.webp">
-                    </div>
-                    <div class="swiper-slide">
-                        <img alt="" class="lazy" src="assets/images/backgrounds/20.webp">
-                    </div>
-                    <div class="swiper-slide">
-                        <img alt="" class="lazy" src="assets/images/backgrounds/07.webp">
-                    </div>
-                    <div class="swiper-slide">
-                        <img alt="" class="lazy" src="assets/images/backgrounds/25.webp">
-                    </div>
-                </div>
-            </div>
-            <H1>PLAY!</H1>
-        </section>
-        <section class="main-content">
-            <div class="games" onclick="log()">
-                <div class="pc group">
-                    <!--<details><summary>-->
-                    <h3>Desktop Games</h3>
-                    <!--</summary>-->
-                    <a href="#">
-                        <div class="card c1">
-                            <div class="text">Space Fire</div>
-                        </div>
-                    </a>
-                    <a href="#">
-                        <div class="card c2">
-                            <div class="text">PacMan</div>
-                        </div>
-                    </a>
-                    <a href="#">
-                        <div class="card c3">
-                            <div class="text">Ping Pong</div>
-                        </div>
-                    </a>
-                    <a href="#">
-                        <div class="card c4">
-                            <div class="text">Tic Tac Toe*</div>
-                        </div>
-                    </a>
-                    <!--</details>-->
-                </div>
-                <div class="android group">
-                    <h3>Android Games</h3>
-                    <a href="#">
-                        <div class="card c5">
-                            <div class="text">PacMan</div>
-                        </div>
-                    </a>
-                    <a href="#">
-                        <div class="card c6">
-                            <div class="text">Tic Tac Toe*</div>
-                        </div>
-                    </a>
-                    <a href="#">
-                        <div class="card c7">
-                            <div class="text">Space Fire</div>
-                        </div>
-                    </a>
-                    <a href="#">
-                        <div class="card c8">
-                            <div class="text">Pong Game</div>
-                        </div>
-                    </a>
-                </div>
-                <div class="web group">
-                    <h3>Web Games</h3>
-                    <a href="#">
-                        <div class="card c9">
-                            <div class="text">Ping Pong</div>
-                        </div>
-                    </a>
-                    <a href="#">
-                        <div class="card c10">
-                            <div class="text">PacMan</div>
-                        </div>
-                    </a>
-                    <a href="#">
-                        <div class="card c11">
-                            <div class="text cs">Coming Soon...</div>
-                        </div>
-                    </a>
-                    <a href="#">
-                        <div class="card c12">
-                            <div class="text cs">Coming Soon...</div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            </div>
-            <section class="footer">
-                <div class="bottom1">
-                    <span class="credit">Created By <a href="#">Ananay</a> and <a href="#">Arunjay</a> | </span>
-                    <span class="far fa-copyright"></span><span> 2023 All rights reserved.</span>
-                </div>
-            </section>
-        </section>
-    </main>
+    <script src=" https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="../assets/js/main.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script>
-        var swiper = new Swiper(".overlay", {
-            spaceBetween: 0,
-            centeredSlides: true,
-            loop: true,
-            autoplay: {
-                delay: 3500,
-            },
-        });
-
-        function log() {
-            window.location.href = "login.html"
-        };
+        (function() {
+            emailjs.init("Kz9EVkEtNSW1p6E0Y");
+        })();
     </script>
-</body>
+    </head>
+
+    <body class="disabledScroll" text="white ">
+        <div class="loading-screen">
+            <div class="loader"></div>
+            <div class="anim"></div>
+        </div>
+        <div class="ripple"></div>
+        <c-nav></c-nav>
+        <main class="page">
+            <section style="background: #121212;" class="welcome-div">
+                <div class="overlay">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <img alt="" class="lazy" src="assets/images/backgrounds/22.webp">
+                        </div>
+                        <div class="swiper-slide">
+                            <img alt="" class="lazy" src="assets/images/backgrounds/15.webp">
+                        </div>
+                        <div class="swiper-slide">
+                            <img alt="" class="lazy" src="assets/images/backgrounds/13.webp">
+                        </div>
+                        <div class="swiper-slide">
+                            <img alt="" class="lazy" src="assets/images/backgrounds/20.webp">
+                        </div>
+                        <div class="swiper-slide">
+                            <img alt="" class="lazy" src="assets/images/backgrounds/07.webp">
+                        </div>
+                        <div class="swiper-slide">
+                            <img alt="" class="lazy" src="assets/images/backgrounds/25.webp">
+                        </div>
+                    </div>
+                </div>
+                <H1>PLAY!</H1>
+            </section>
+            <section class="main-content">
+                <section class="games" onclick="log()">
+                    <div class="pc group">
+                        <!--<details><summary>-->
+                        <h3>Desktop Games</h3>
+                        <!--</summary>-->
+                        <a href="#">
+                            <div class="card c1">
+                                <div class="text">Space Fire</div>
+                            </div>
+                        </a>
+                        <a href="#">
+                            <div class="card c2">
+                                <div class="text">PacMan</div>
+                            </div>
+                        </a>
+                        <a href="#">
+                            <div class="card c3">
+                                <div class="text">Ping Pong</div>
+                            </div>
+                        </a>
+                        <a href="#">
+                            <div class="card c4">
+                                <div class="text">Tic Tac Toe*</div>
+                            </div>
+                        </a>
+                        <!--</details>-->
+                    </div>
+                    <div class="android group">
+                        <h3>Android Games</h3>
+                        <a href="#">
+                            <div class="card c5">
+                                <div class="text">PacMan</div>
+                            </div>
+                        </a>
+                        <a href="#">
+                            <div class="card c6">
+                                <div class="text">Tic Tac Toe*</div>
+                            </div>
+                        </a>
+                        <a href="#">
+                            <div class="card c7">
+                                <div class="text">Space Fire</div>
+                            </div>
+                        </a>
+                        <a href="#">
+                            <div class="card c8">
+                                <div class="text">Pong Game</div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="web group">
+                        <h3>Web Games</h3>
+                        <a href="#">
+                            <div class="card c9">
+                                <div class="text">Ping Pong</div>
+                            </div>
+                        </a>
+                        <a href="#">
+                            <div class="card c10">
+                                <div class="text">PacMan</div>
+                            </div>
+                        </a>
+                        <a href="#">
+                            <div class="card c11">
+                                <div class="text cs">Coming Soon...</div>
+                            </div>
+                        </a>
+                        <a href="#">
+                            <div class="card c12">
+                                <div class="text cs">Coming Soon...</div>
+                            </div>
+                        </a>
+                    </div>
+                </section>
+                <section class="feedback">
+                    <div class="f-form">
+                        <div class="f-contaniner">
+                            <h1>Feedback</h1>
+                            <div class="f-group">
+                                <h5 for="name">Name</h5>
+                                <input type="text" class="f-control" id="name" placeholder="Enter name" />
+                            </div>
+                            <div class="f-group">
+                                <h5 for="message">Message</h5>
+                                <textarea class="f-control" id="message" rows="6" placeholder="Enter the message here"></textarea>
+                            </div>
+                            <button class="btn-primary" onclick="sendMail()">Submit</button>
+                        </div>
+                    </div>
+                </section>
+                <section class="footer">
+                    <div class="bottom1">
+                        <span class="credit">Created By <a href="#">Ananay</a> and <a href="#">Arunjay</a> | </span>
+                        <span class="far fa-copyright"></span><span> 2023 All rights reserved.</span>
+                    </div>
+                </section>
+            </section>
+        </main>
+        <script>
+            var swiper = new Swiper(".overlay", {
+                spaceBetween: 0,
+                centeredSlides: true,
+                loop: true,
+                autoplay: {
+                    delay: 3500,
+                },
+            });
+
+            function log() {
+                window.location.href = "login.html"
+            };
+        </script>
+    </body>
 
 </html>
 
