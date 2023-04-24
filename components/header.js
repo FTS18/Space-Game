@@ -337,7 +337,7 @@ nav .content .links{
   </a>
   </div>
     <ul class="links">
-      <li><a href="index.html">Home</a></li>
+      <li><a class="active" href="index.html">Home</a></li>
       <li>
         <a href="#" class="desktop-link">Connect</a>
         <input type="checkbox" id="show-services">
@@ -358,8 +358,7 @@ nav .content .links{
       <li><a href="https://github.com/Arunjay126">Arunjay</a></li>
       </ul>
     </li>
-      <li><a href="coming-soon.html">Feedback</a></li>
-      <li><a class="active" href="login.html">Login</a></li>
+      <li><a href="#feedback">Feedback</a></li>
     </ul>
   </div>
   <label for="show-search" class="search-icon"><i class="fas fa-search"></i></label>
