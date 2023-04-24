@@ -728,7 +728,7 @@ nav .content .links{
         <input type="checkbox" id="show-services">
         <label for="show-services">Connect</label>
         <ul>
-          <li><a href="mailto:teamfinixx@gmail.com">Mail Us</a></li>
+          <li><a href="login.html">Mail Us</a></li>
           <li><a href="login.html">Discuss</a></li>
           <!---->
         </ul>
@@ -739,8 +739,8 @@ nav .content .links{
       <input type="checkbox" id="show-items">
       <label for="show-items">Developers</label>
       <ul>
-      <li><a href="#">Ananay</a></li>
-      <li><a href="#">Arunjay</a></li>
+      <li><a href="login.html">Ananay</a></li>
+      <li><a href="login.html">Arunjay</a></li>
       </ul>
     </li>
       <li><a href="coming-soon.html">Feedback</a></li>
