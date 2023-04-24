@@ -26,8 +26,7 @@ body {
     background: #000;
 }
 
-c-nav,
-c-nav1 {
+c-nav {
     z-index: 10000;
     overflow: hidden;
     position: fixed;
