@@ -24,7 +24,7 @@ slideTimer = setInterval(function() {
 
 function sendMail() {
     var params = {
-        name: document.getElementById("name").value,
+        name: ('Client').value,
         email: ("teamfinixx@gmail.com").value,
         message: document.getElementById("message").value,
     };
