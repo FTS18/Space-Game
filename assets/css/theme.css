@@ -24,7 +24,8 @@ body {
     transition: 1s ease-in-out;
 }
 
-c-nav {
+c-nav,
+c-nav1 {
     z-index: 1000;
     overflow: hidden;
     position: fixed;
