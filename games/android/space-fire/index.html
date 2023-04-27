@@ -30,12 +30,6 @@
             left: 0;
         }
     </style>
-    <script>
-        function closef() {
-            var promptx = document.querySelector(".rating");
-            promptx.style.display = "none"
-        }
-    </script>
 </head>
 
 <body class="disabledScroll" onload="startGame();" bgcolor="#000">
@@ -51,22 +45,7 @@
         <div class="key right" onclick="moveRight()"></div>
         <div class="key bottom" onclick="moveLeft()"></div>
     </div>
-    <div class="rating">
-        <div class="radio-stars">
-            <input class="sr-only" id="radio-5" name="radio-star" type="radio" value="5" />
-            <label class="radio-star" for="radio-5">5</label>
-            <input class="sr-only" id="radio-4" name="radio-star" type="radio" value="4" />
-            <label class="radio-star" for="radio-4">4</label>
-            <input class="sr-only" id="radio-3" name="radio-star" type="radio" value="3" />
-            <label checked="" false class="radio-star" for="radio-3">3</label>
-            <input class="sr-only" id="radio-2" name="radio-star" type="radio" value="2" />
-            <label class="radio-star" for="radio-2">2</label>
-            <input class="sr-only" id="radio-1" name="radio-star" type="radio" value="1" />
-            <label class="radio-star" for="radio-1">1</label>
-            <span class="radio-star-total"></span>
-        </div>
-        <div class="close" onclick="closeModal()"><i class="fas fa-times"></i></div>
-    </div>
+    <c-rate></c-rate>
     <div id="back" onclick="window.location.reload()">REPLAY</div>
 </body>
 

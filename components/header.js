@@ -54,7 +54,7 @@ nav .content .links{
   display: flex;
 }
 .content .logo a{
-  color: #e7e7e7;
+  color: #ccc;
   font-size: 30px;
   font-weight: 600;
 }
@@ -64,7 +64,7 @@ nav .content .links{
 }
 .content .links li a,
 .content .links li label{
-  color: #e7e7e7;
+  color: #ccc;
   font-size: 18px;
   font-weight: 500;
   padding: 9px 17px;
@@ -116,7 +116,7 @@ nav .content .links{
   border: none;
   outline: none;
   font-size: 17px;
-  color: #e7e7e7;
+  color: #ccc;
   position: relative;
   z-index: 10000;
   background: #222;
@@ -137,7 +137,7 @@ nav .content .links{
   border: none;
   outline: none;
   z-index: 10001;
-  color: #e7e7e7;
+  color: #ccc;
   font-size: 20px;
   cursor: pointer;
 }
@@ -382,8 +382,7 @@ class Header extends HTMLElement {
 }
 customElements.define('c-nav', Header);
 
-const headerTemplate1 = document.createElement('template');
-
+const headerTemplate1 = document.createElement('template')
 headerTemplate1.innerHTML = `
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -438,7 +437,7 @@ nav .content .links{
   display: flex;
 }
 .content .logo a{
-  color: #e7e7e7;
+  color: #ccc;
   font-size: 30px;
   font-weight: 600;
 }
@@ -448,7 +447,7 @@ nav .content .links{
 }
 .content .links li a,
 .content .links li label{
-  color: #e7e7e7;
+  color: #ccc;
   font-size: 18px;
   font-weight: 500;
   padding: 9px 17px;
@@ -500,7 +499,7 @@ nav .content .links{
   border: none;
   outline: none;
   font-size: 17px;
-  color: #e7e7e7;
+  color: #ccc;
   position: relative;
   z-index: 10000;
   background: #222;
@@ -521,7 +520,7 @@ nav .content .links{
   border: none;
   outline: none;
   z-index: 10001;
-  color: #e7e7e7;
+  color: #ccc;
   font-size: 20px;
   cursor: pointer;
 }
@@ -768,7 +767,6 @@ class Header1 extends HTMLElement {
 customElements.define('c-nav1', Header1);
 
 const headerTemplate2 = document.createElement('template');
-
 headerTemplate2.innerHTML = `
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -827,7 +825,7 @@ nav .content .links{
   display: flex;
 }
 .content .logo a{
-  color: #e7e7e7;
+  color: #ccc;
   font-size: 30px;
   font-weight: 600;
 }
@@ -837,7 +835,7 @@ nav .content .links{
 }
 .content .links li a,
 .content .links li label{
-  color: #e7e7e7;
+  color: #ccc;
   font-size: 18px;
   font-weight: 500;
   padding: 9px 17px;
@@ -1132,3 +1130,277 @@ class Header2 extends HTMLElement {
     }
 }
 customElements.define('c-nav2', Header2);
+
+const ratingTemplate = document.createElement('template');
+ratingTemplate.innerHTML = `
+<script src="https://kit.fontawesome.com/28917c5b69.js" crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+<style>
+.radio-stars {
+  display: inline-block;
+  position: relative;
+  unicode-bidi: bidi-override;
+  direction: rtl;
+  counter-reset: star-rating;
+  font-size: 0;
+}
+
+.radio-stars:hover .radio-star::before {
+  content: "☆";
+}
+
+.radio-stars:hover .radio-star:hover::before,
+.radio-stars:hover .radio-star:hover~.radio-star::before {
+  content: "★";
+}
+
+.radio-star {
+  display: inline-block;
+  overflow: hidden;
+  cursor: pointer;
+  padding: 0 2.1px;
+  width: 0.82em;
+  direction: ltr;
+  font-size: 40px;
+  white-space: nowrap;
+  color: #ccc;
+  left: 50%;
+  transform: translate(-50%);
+  -webkit-transform: translate(-50%);
+  -moz-transform: translate(-50%);
+  -ms-transform: translate(-50%);
+  -o-transform: translate(-50%);
+}
+
+.radio-star::before {
+  content: "☆";
+}
+
+.radio-star:hover~.radio-star,
+input:checked~.radio-star {
+  color: #ffae00;
+}
+
+.radio-star:hover {
+  color: #ccc;
+}
+
+input:checked~.radio-star {
+  counter-increment: star-rating;
+}
+
+input:checked~.radio-star::before {
+  content: "★";
+}
+
+.radio-star-total {
+  pointer-events: none;
+  direction: ltr;
+  unicode-bidi: bidi-override;
+  position: absolute;
+  right: -1.2em;
+  bottom: 0.5em;
+  color: gray;
+  color: white;
+  font-size: 20px;
+}
+
+.radio-star-total::before {
+  content: counter(star-rating) "/5";
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  margin: -1px;
+  padding: 0;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+.close {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 40px;
+  height: 40px;
+  color: #ff0040;
+  background: #080808;
+  border-radius: 50px;
+}
+
+.close i {
+  width: 100%;
+  color: #777;
+  font-size: 25px;
+  cursor: pointer;
+  text-align: center;
+  transition: .2s all ease-in-out;
+}
+.close i:hover {
+  color: #ffae00;
+  right: 5px;
+  font-size: 27px;
+}
+.rating {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: auto;
+  width: 100%;
+  height: 35px;
+  margin: 40px 0px;
+}
+.feedback {
+    position: fixed;
+    top: 40%;
+    left:50%;
+    width: 100%;
+    height: 390px;
+    padding-top: 50px;
+    display: grid;
+    grid-gap: 0rem;
+    max-width: 763px;
+    margin: 50px auto;
+    transform: translate(-50%, -50%);
+    z-index: 100000;
+    border-radius: 12px;
+}
+
+.f-form {
+    position: fixed;
+    top: 10%;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    background: #121212;
+    color: #ddd;
+    width: 100%;
+    height: 345px;
+    padding: 10px;
+    font-size: 30px;
+    border-radius: 20px;
+    -webkit-transform: translate(-50%, 0%);
+    -moz-transform: translate(-50%, 0%);
+    -ms-transform: translate(-50%, 0%);
+    -o-transform: translate(-50%, 0%);
+    border: 1px solid #333;
+}
+
+.f-contaniner {
+    margin: 0px 20px;
+}
+
+.f-group {
+    margin: 0px 0px;
+    overflow: hidden;
+}
+
+.f-group h5 {
+    font-size: 22px;
+    color: #ccc;
+}
+
+.f-control {
+    width: 100%;
+    background: #222;
+    outline: none;
+    border: none;
+    padding: 10px;
+    font-size: 18px;
+    border-radius: 4px;
+    margin: 2px 0px;
+    transition: 0.5s ease-in-out;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+    -webkit-transition: 0.5s ease-in-out;
+    -moz-transition: 0.5s ease-in-out;
+    -ms-transition: 0.5s ease-in-out;
+    -o-transition: 0.5s ease-in-out;
+}
+
+.btn-primary {
+    margin: 0px 0px;
+    padding: 10px 20px;
+    background: #ff0040;
+    color: #ddd;
+    width: 100%;
+    height: 55px;
+    transition: 0.3s ease-in-out;
+    -webkit-transition: 0.3s ease-in-out;
+    -moz-transition: 0.3s ease-in-out;
+    -ms-transition: 0.3s ease-in-out;
+    -o-transition: 0.3s ease-in-out;
+    font-size: 25px;
+    font-family: "Poppins", sans-serif;
+    font-weight: 900;
+    text-transform: uppercase;
+    border-radius: 8px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+.btn-primary:hover {
+    background: #ddd;
+    color: #ff0040;
+    letter-spacing: 1.25px;
+    border-radius: 50px;
+}
+input,
+textarea,
+button,
+select,
+a,
+img {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    text-decoration: none;
+    border: none;
+    outline: none;
+    user-select: none;
+    color: white;
+}
+
+</style>
+<section class="feedback">
+  <div class="f-form">
+    <div class="f-contaniner">
+      <div class="rating">
+        <div class="radio-stars">
+          <input class="sr-only" id="radio-5" name="radio-star" type="radio" value="5" />
+          <label class="radio-star" for="radio-5">5</label>
+          <input class="sr-only" id="radio-4" name="radio-star" type="radio" value="4" />
+          <label class="radio-star" for="radio-4">4</label>
+          <input class="sr-only" id="radio-3" name="radio-star" type="radio" value="3" />
+          <label checked="" false class="radio-star" for="radio-3">3</label>
+          <input class="sr-only" id="radio-2" name="radio-star" type="radio" value="2" />
+          <label class="radio-star" for="radio-2">2</label>
+          <input class="sr-only" id="radio-1" name="radio-star" type="radio" value="1" />
+          <label class="radio-star" for="radio-1">1</label>
+          <span class="radio-star-total"></span>
+        </div>
+      </div>
+      <div class="f-group" id='f-hide'>
+        <textarea class="f-control" id="message" rows="5" placeholder="Enter feedback/review"></textarea>
+        <button class="btn-primary" onclick="log()" id='btn-hide'>Submit</button>
+      </div>
+    </div>
+    <div class="close" onclick="rate()"><i class="fas fa-times"></i></div>
+  </div>
+</section>
+`;
+
+class Rate extends HTMLElement {
+    constructor() {
+        super();
+    }
+
+    connectedCallback() {
+        const shadowRoot = this.attachShadow({ mode: 'closed' });
+        shadowRoot.appendChild(ratingTemplate.content);
+    }
+}
+customElements.define('c-rate', Rate);

@@ -205,93 +205,11 @@ body {
     height: 40px;
     text-align: center;
     line-height: 40px;
-}
-
-.radio-stars {
-    display: inline-block;
-    position: relative;
-    unicode-bidi: bidi-override;
-    direction: rtl;
-    counter-reset: star-rating;
-    font-size: 0;
-}
-
-.radio-stars:hover .radio-star::before {
-    content: "☆";
-}
-
-.radio-stars:hover .radio-star:hover::before,
-.radio-stars:hover .radio-star:hover~.radio-star::before {
-    content: "★";
-}
-
-.radio-star {
-    display: inline-block;
-    overflow: hidden;
     cursor: pointer;
-    padding: 0 2.1px;
-    width: 0.82em;
-    direction: ltr;
-    font-size: 40px;
-    white-space: nowrap;
-    color: #ccc;
-    left: 50%;
-    transform: translate(-50%);
-    -webkit-transform: translate(-50%);
-    -moz-transform: translate(-50%);
-    -ms-transform: translate(-50%);
-    -o-transform: translate(-50%);
+    user-select: none;
 }
 
-.radio-star::before {
-    content: "☆";
-}
-
-.radio-star:hover~.radio-star,
-input:checked~.radio-star {
-    color: #ffae00;
-}
-
-.radio-star:hover {
-    color: #ccc;
-}
-
-input:checked~.radio-star {
-    counter-increment: star-rating;
-}
-
-input:checked~.radio-star::before {
-    content: "★";
-}
-
-.radio-star-total {
-    pointer-events: none;
-    direction: ltr;
-    unicode-bidi: bidi-override;
-    position: absolute;
-    right: -1.2em;
-    bottom: 0.5em;
-    color: gray;
-    color: white;
-    font-size: 20px;
-}
-
-.radio-star-total::before {
-    content: counter(star-rating) "/5";
-}
-
-.sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    margin: -1px;
-    padding: 0;
-    clip: rect(0, 0, 0, 0);
-    border: 0;
-}
-
-.rating {
+c-rate {
     display: none;
     justify-content: center;
     align-items: center;
@@ -302,10 +220,12 @@ input:checked~.radio-star::before {
     position: fixed;
     top: 50%;
     left: 50%;
+    user-select: none;
     transform: translate(-50%, -50%);
     z-index: 100000;
     border-radius: 12px;
     opacity: 0;
+    transition: 0.7s all ease-in-out;
     -webkit-transform: translate(-50%, -50%);
     -moz-transform: translate(-50%, -50%);
     -ms-transform: translate(-50%, -50%);
@@ -315,23 +235,16 @@ input:checked~.radio-star::before {
     -ms-border-radius: 12px;
     -o-border-radius: 12px;
     border: 1px solid #333;
+    -webkit-transition: 0.7s all ease-in-out;
+    -moz-transition: 0.7s all ease-in-out;
+    -ms-transition: 0.7s all ease-in-out;
+    -o-transition: 0.7s all ease-in-out;
 }
 
-.close {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    width: 40px;
-    height: 40px;
-    color: #ff0040;
-}
-
-.close i {
-    width: 100%;
-    color: #ff0040;
-    font-size: 29px;
-    cursor: pointer;
-    text-align: center;
+c-rate.activez {
+    display: flex;
+    opacity: 1;
+    transition: 0.7s all ease-in-out;
 }
 
 @media only screen and (max-width: 768px) {

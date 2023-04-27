@@ -16,16 +16,8 @@ var drawRipple = function(ev) {
 window.addEventListener("click", drawRipple);
 
 function rate() {
-    var promptx = document.querySelector(".rating");
-    promptx.style.display = "flex";
-    promptx.style.opacity = "1";
-    promptx.style.transition = "1s ease-in-out"
-}
-
-function closeModal() {
-    var promptx = document.querySelector(".rating");
-    promptx.style.display = "none";
-    promptx.style.opacity = "0";
+    var promptx = document.querySelector("c-rate");
+    promptx.classList.toggle("activez")
 }
 
 //Slide Up on Page Load
