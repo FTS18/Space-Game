@@ -28,7 +28,7 @@ function startGame() {
         myMusic = new sound("/assets/music/Recording.m4a");
         mysound = new sound("/assets/music/ACRON.mp3");
         myscore = new component("20px", "JetBrains Mono", "#ccc", 1075, 60, "text");
-        myovers = new component("110px", "JetBrains Mono", "#ff0040", 300, 440, "text");
+        myovers = new component("110px", "JetBrains Mono", "#ffae00", 300, 440, "text");
         myscores = new component("45px", "JetBrains Mono", "#ccc", 400, 510, "text");
         mycs = new component("20px", "JetBrains Mono", "#ccc", 1000, 60, "text");
         mypos = this.x;
@@ -76,7 +76,7 @@ var myGameArea = {
         myscores.update();
         mycsl.text = "COINS COLLECTED:" + coinscore;
         mycsl.update();
-        var retry = document.querySelector("canvas");
+        rate()
     },
     nextlevel: function() {
         clearInterval(this.interval);
@@ -88,8 +88,6 @@ var myGameArea = {
         mycsl.text = "COINS:" + coinscore;
         mycsl.update();
         myGameArea.start();
-        var x = document.getElementById("back");
-        x.textContent = "BACK";
     }
 }
 
@@ -201,14 +199,12 @@ function updateGameArea() {
         mybullet.speedX = 6;
         mybullet1.speedX = 6;
         mybulletsound.play();
-        setTimeout(() => {
-            mybulletsound.stop();
-        }, 200);
+        mybulletsound.stop();
     }
+    //2document.querySelector("canvas").addEventListener("touchstart", fire());
     if (myGameArea.keys && myGameArea.keys[32]) {
         fire()
     }
-
     if (myGameArea.keys && myGameArea.keys[37]) {
         myGamePiece.speedX -= -1;
     }

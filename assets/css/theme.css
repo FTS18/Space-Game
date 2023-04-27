@@ -120,7 +120,7 @@ body::-webkit-scrollbar-thumb {
     animation: counter 1.6s forwards ease-in-out;
     counter-reset: num var(--num);
     padding: 2rem;
-    -webkit-animation: counter 1.6s forwards ease-in-out;
+    -webkit-animation: counter 1.38s forwards ease-in-out;
 }
 
 .loader::before {
