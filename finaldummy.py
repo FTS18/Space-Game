@@ -2,7 +2,7 @@ import js2py
 a = 'arunjay'
 b = 1234
 # Load the JavaScript code from a file
-with open('data.js', 'r') as f:
+with open('datadummy.js', 'r') as f:
     js_code = f.read()
 
 # Create a JavaScript context using js2py
@@ -26,5 +26,5 @@ new_js_code = f"""
     const passwords = {newpa}
 """
 
-with open('data.js', 'w') as f:
+with open('datadummy.js', 'w') as f:
     f.write(new_js_code)
