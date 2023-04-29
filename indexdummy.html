@@ -1,25 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Run Python Script with AJAX</title>
+	<title>Run Python Script</title>
 </head>
 <body>
-	<h1>Run Python Script with AJAX</h1>
-	<button onclick="runScript()">Run Script</button>
-	<div id="output"></div>
-	<script>
-		function runScript() {
-			var xhr = new XMLHttpRequest();
-			xhr.open('GET', 'scriptdummy.js', true);
-			xhr.onload = function() {
-				if (xhr.status == 200) {
-					document.getElementById('output').innerHTML = xhr.responseText;
-				} else {
-					alert('Error: ' + xhr.statusText);
-				}
-			};
-			xhr.send();
-		}
-	</script>
+	<h1>Run Python Script</h1>
+	<button id="run-btn">Run Script</button>
+	<script src="scriptdummy.js"></script>
 </body>
 </html>
