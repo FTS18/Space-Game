@@ -5,19 +5,23 @@
 </head>
 <body>
 	<h1>Run Python Script with PHP</h1>
-	<button onclick="runScript()">Run Script</button>
-	<div id="output"></div>
+	<button id="run-button">Run Script</button>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script>
-		function runScript() {
-			var xhr = new XMLHttpRequest();
-			xhr.onreadystatechange = function() {
-				if (xhr.readyState === 4 && xhr.status === 200) {
-					document.getElementById('output').innerHTML = xhr.responseText;
-				}
-			};
-			xhr.open('GET', 'scriptdummy.php', true);
-			xhr.send();
-		}
+		$(document).ready(function() {
+			$('#run-button').click(function() {
+				$.ajax({
+					url: 'scriptdummy.php',
+					type: 'POST',
+					success: function(data) {
+						console.log(data);
+					},
+					error: function(jqXHR, textStatus, errorThrown) {
+						console.log(textStatus, errorThrown);
+					}
+				});
+			});
+		});
 	</script>
 </body>
 </html>
