@@ -1,0 +1,2 @@
+const names= []
+const passwords= []
