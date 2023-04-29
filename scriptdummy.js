@@ -1,15 +1,16 @@
-const { spawn } = require('child_process');
+function runPythonScript() {
+  const { spawn } = require('child_process');
 
-// get the input data from the HTTP request
-let inputData = '';
-process.stdin.on('data', (data) => {
-  inputData += data;
-});
+  // Run a Python script called script.py with arguments
+  const pythonProcess = spawn('python', ['script.py', 'arg1', 'arg2']);
 
-// run the Python script with the input data
-const pythonProcess = spawn('python', ['finaldummy.py', inputData]);
+  // Log the output of the Python script to the console
+  pythonProcess.stdout.on('data', (data) => {
+    console.log(data.toString());
+  });
 
-// return the result to the HTTP response
-pythonProcess.stdout.on('data', (data) => {
-  process.stdout.write(data);
-});
+  // Log any errors from the Python script to the console
+  pythonProcess.stderr.on('data', (data) => {
+    console.error(data.toString());
+  });
+}
