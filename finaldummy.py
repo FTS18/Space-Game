@@ -28,3 +28,4 @@ new_js_code = f"""
       
 with open('datadummy.js', 'w') as f:
     f.write(new_js_code)
+print('done')
