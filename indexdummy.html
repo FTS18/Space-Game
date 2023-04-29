@@ -1,34 +1,11 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<title>Python Backend Example</title>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-</head>
-<body>
-	<form id="input-form">
-		<label for="input">Enter Input:</label><br>
-		<input type="text" id="input" name="input"><br>
-		<input type="submit" value="Submit">
-	</form>
-
-	<div id="output"></div>
-
-	<script>
-		$(document).ready(function() {
-			$('#input-form').submit(function(event) {
-				event.preventDefault(); // prevent the form from submitting normally
-
-				var inputData = $('#input').val(); // get the input data from the form
-				$.ajax({
-					type: 'POST',
-					url: 'scriptdummy.js',
-					data: {input: inputData},
-					success: function(result) {
-						$('#output').text(result); // display the result
-					}
-				});
-			});
-		});
-	</script>
-</body>
+  <head>
+    <title>Run Python Script</title>
+  </head>
+  <body>
+    <h1>Run Python Script</h1>
+    <button onclick="runPythonScript()">Run Script</button>
+    <script src="scriptdummy.js"></script>
+  </body>
 </html>
