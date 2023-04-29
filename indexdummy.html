@@ -1,27 +1,25 @@
 <!DOCTYPE html>
-<html lang = 'en'>
+<html>
 <head>
-	<title>Run Python Script with PHP</title>
+	<title>Run Python Script with AJAX</title>
 </head>
 <body>
-	<h1>Run Python Script with PHP</h1>
-	<button id="run-button">Run Script</button>
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<h1>Run Python Script with AJAX</h1>
+	<button onclick="runScript()">Run Script</button>
+	<div id="output"></div>
 	<script>
-		$(document).ready(function() {
-			$('#run-button').click(function() {
-				$.ajax({
-					url: 'scriptdummy.php',
-					type: 'POST',
-					success: function(data) {
-						console.log(data);
-					},
-					error: function(jqXHR, textStatus, errorThrown) {
-						console.log(textStatus, errorThrown);
-					}
-				});
-			});
-		});
+		function runScript() {
+			var xhr = new XMLHttpRequest();
+			xhr.open('GET', 'scriptdummy.js', true);
+			xhr.onload = function() {
+				if (xhr.status == 200) {
+					document.getElementById('output').innerHTML = xhr.responseText;
+				} else {
+					alert('Error: ' + xhr.statusText);
+				}
+			};
+			xhr.send();
+		}
 	</script>
 </body>
 </html>
