@@ -25,6 +25,6 @@ new_js_code = f"""
     const names = {newna}
     const passwords = {newpa}
 """
-
+      
 with open('datadummy.js', 'w') as f:
     f.write(new_js_code)
