@@ -1,4 +1,4 @@
 <?php
-$output = shell_exec('python finaldummy.py');
+$output = shell_exec('finaldummy.py');
 echo $output;
 ?>
