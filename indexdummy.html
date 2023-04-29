@@ -10,14 +10,12 @@
 	<script>
 		function runScript() {
 			var xhr = new XMLHttpRequest();
-			xhr.open('GET', 'scriptdummy.php', true);
-			xhr.onload = function() {
-				if (xhr.status == 200) {
+			xhr.onreadystatechange = function() {
+				if (xhr.readyState === 4 && xhr.status === 200) {
 					document.getElementById('output').innerHTML = xhr.responseText;
-				} else {
-					alert('Error: ' + xhr.statusText);
 				}
 			};
+			xhr.open('GET', 'scriptdummy.php', true);
 			xhr.send();
 		}
 	</script>
