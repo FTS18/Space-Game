@@ -1,2 +1,0 @@
-const names= []
-const passwords= []
