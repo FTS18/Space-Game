@@ -1,4 +1,4 @@
 
-       const names = ['ananay']
-       const passwords = ['12345']
+       const names = []
+       const passwords = []
    
