@@ -28,22 +28,24 @@ slideTimer = setInterval(function() {
 
 function sendMail() {
     var params = {
-        name: ('Client').value,
-        email: ("teamfinixx@gmail.com").value,
+        name: ('Client'),
+        email: ("teamfinixx@gmail.com"),
         message: document.getElementById("message").value,
     };
     const serviceID = "service_a9sz0qu";
     const templateID = "template_9q6eoie";
     emailjs.send(serviceID, templateID, params)
         .then(res => {
-            document.getElementById("name").value = "";
             ("teamfinixx@gmail.com").value = "";
             document.getElementById("message").value = "";
             console.log(res);
             alert("Your message sent successfully!!")
         })
         .catch(err => console.log(err));
+    rate()
 }
+
+
 /*
 function loadStyle() {
   var styles = document.createElement('link');

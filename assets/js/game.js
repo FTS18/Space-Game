@@ -28,7 +28,7 @@ function startGame() {
         myMusic = new sound("/assets/music/Recording.m4a");
         mysound = new sound("/assets/music/ACRON.mp3");
         myscore = new component("20px", "JetBrains Mono", "#ccc", 1075, 60, "text");
-        myovers = new component("110px", "JetBrains Mono", "#ffae00", 300, 440, "text");
+        myovers = new component("110px", "JetBrains Mono", "#ff0040", 300, 440, "text");
         myscores = new component("45px", "JetBrains Mono", "#ccc", 400, 510, "text");
         mycs = new component("20px", "JetBrains Mono", "#ccc", 1000, 60, "text");
         mypos = this.x;

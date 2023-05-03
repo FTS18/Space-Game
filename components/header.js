@@ -1118,12 +1118,10 @@ nav .content .links{
 </nav>
 </div>
 `;
-
 class Header2 extends HTMLElement {
     constructor() {
         super();
     }
-
     connectedCallback() {
         const shadowRoot = this.attachShadow({ mode: 'closed' });
         shadowRoot.appendChild(headerTemplate2.content);
@@ -1134,8 +1132,10 @@ customElements.define('c-nav2', Header2);
 const ratingTemplate = document.createElement('template');
 ratingTemplate.innerHTML = `
 <script src="https://kit.fontawesome.com/28917c5b69.js" crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<script src="../assets/js/main.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
 <style>
 .radio-stars {
   display: inline-block;
@@ -1241,7 +1241,7 @@ input:checked~.radio-star::before {
   transition: .2s all ease-in-out;
 }
 .close i:hover {
-  color: #ffae00;
+  color: #ff0040;
   right: 5px;
   font-size: 27px;
 }
@@ -1272,7 +1272,7 @@ input:checked~.radio-star::before {
 
 .f-form {
     position: fixed;
-    top: 10%;
+    top: 5%;
     left: 50%;
     transform: translate(-50%, 0%);
     background: #121212;
@@ -1384,8 +1384,8 @@ img {
         </div>
       </div>
       <div class="f-group" id='f-hide'>
-        <textarea class="f-control" id="message" rows="5" placeholder="Enter feedback/review"></textarea>
-        <button class="btn-primary" onclick="log()" id='btn-hide'>Submit</button>
+        <textarea class="f-control" id="message" rows="5" placeholder="Feedback"></textarea>
+        <button class="btn-primary" onclick="rate();sendMail()" id='btn-hide'>Submit</button>
       </div>
     </div>
     <div class="close" onclick="rate()"><i class="fas fa-times"></i></div>
@@ -1396,6 +1396,25 @@ img {
 class Rate extends HTMLElement {
     constructor() {
         super();
+        const feedback = this.querySelector('#message');
+
+        function sendMail1() {
+            var params = {
+                name: ('Client'),
+                email: ("teamfinixx@gmail.com"),
+                message: feedback.value,
+            };
+            const serviceID = "service_a9sz0qu";
+            const templateID = "template_9q6eoie";
+            emailjs.send(serviceID, templateID, params)
+                .then(res => {
+                    ("teamfinixx@gmail.com").value = "";
+                    feedback.value = "";
+                    console.log(res);
+                    alert("Your message sent successfully!!")
+                })
+                .catch(err => console.log(err));
+        }
     }
 
     connectedCallback() {
