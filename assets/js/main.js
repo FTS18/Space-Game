@@ -12,6 +12,8 @@ var drawRipple = function(ev) {
 };
 
 window.addEventListener("click", drawRipple);
+emailjs.init('Kz9EVkEtNSW1p6E0Y');
+
 function rate() {
     var promptx = document.querySelector("c-rate");
     promptx.classList.toggle("activez");
