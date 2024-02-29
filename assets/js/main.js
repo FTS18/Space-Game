@@ -32,7 +32,6 @@ function sendMail() {
     const templateID = "template_9q6eoie";
     emailjs.send(serviceID, templateID, params)
         .then(res => {
-            document.getElementById("message").value = "";
             console.log(res);
             alert("Your message sent successfully!!")
         })
