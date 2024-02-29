@@ -25,26 +25,24 @@ slideTimer = setInterval(function() {
     $('.loading-screen').slideUp();
     $('body').removeClass('disabledScroll');
 }, 1550); //3500
-
 function sendMail() {
     var params = {
-        name: ('Client'),
-        email: ("teamfinixx@gmail.com"),
+        name: 'Client', // Removed unnecessary parentheses
+        email: "teamfinixx@gmail.com",
         message: document.getElementById("message").value
     };
     const serviceID = "service_a9sz0qu";
     const templateID = "template_9q6eoie";
     emailjs.send(serviceID, templateID, params)
         .then(res => {
-            ("teamfinixx@gmail.com").value = "";
+            // Correct way to reset input values
             document.getElementById("message").value = "";
             console.log(res);
             alert("Your message sent successfully!!")
         })
         .catch(err => console.log(err));
-    rate()
+    rate();
 }
-
 
 /*
 function loadStyle() {
