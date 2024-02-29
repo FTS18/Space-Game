@@ -66,32 +66,7 @@
         function rate() {
             var promptx = document.querySelector("c-rate");
             promptx.classList.toggle("activez");
-        }
-        emailjs.init('Kz9EVkEtNSW1p6E0Y');
-        function sendMail() {
-            var message = document.getElementById("message").value;
-            // Check if message is not empty
-            if (message.trim() === "") {
-                alert("Please enter a message before sending.");
-                return;
-            }
-
-            var params = {
-                name: 'Client',
-                email: "teamfinixx@gmail.com", // Change to your email address
-                message: message,
-            };
-            const serviceID = "service_a9sz0qu"; // Change to your service ID
-            const templateID = "template_9q6eoie"; // Change to your template ID
-            // Send email using EmailJS
-            emailjs.send(serviceID, templateID, params)
-                .then(res => {
-                    console.log(res);
-                    alert("Your message sent successfully!!");
-                    rate();
-                })
-                .catch(err => console.log(err));
-        }
+        }            
 
 
 slideTimer = setInterval(function() {
@@ -248,9 +223,31 @@ slideTimer = setInterval(function() {
             });
 
             function hide() {
+                emailjs.init('Kz9EVkEtNSW1p6E0Y');
+                var message = document.getElementById("message").value;
                 document.getElementById('f-hide').innerHTML = 'Thank you for your feedback';
                 document.getElementById('btn-hide').style.display = 'none';
-                sendMail()
+            // Check if message is not empty
+                if (message.trim() === "") {
+                    alert("Please enter a message before sending.");
+                    return;
+                }
+
+                var params = {
+                    name: 'Client',
+                    email: "teamfinixx@gmail.com", // Change to your email address
+                    message: message,
+                };
+                const serviceID = "service_a9sz0qu"; // Change to your service ID
+                const templateID = "template_9q6eoie"; // Change to your template ID
+                // Send email using EmailJS
+                emailjs.send(serviceID, templateID, params)
+                    .then(res => {
+                        console.log(res);
+                        alert("Your message sent successfully!!");
+                        rate();
+                    })
+                    .catch(err => console.log(err));
             }
         </script>
     </body>
