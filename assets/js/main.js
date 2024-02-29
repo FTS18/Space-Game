@@ -12,37 +12,3 @@ var drawRipple = function(ev) {
 };
 
 window.addEventListener("click", drawRipple);
-emailjs.init('Kz9EVkEtNSW1p6E0Y');
-
-function rate() {
-    var promptx = document.querySelector("c-rate");
-    promptx.classList.toggle("activez");
-}
-
-slideTimer = setInterval(function() {
-    $('.loading-screen').slideUp();
-    $('body').removeClass('disabledScroll');
-}, 1550); //3500
-
-function sendMail() {
-    var message = document.getElementById("message").value;
-    if (message.trim() === "") {
-        alert("Please enter a message before sending.");
-        return;
-    }
-
-    var params = {
-        name: 'Client',
-        email: "teamfinixx@gmail.com",
-        message: message,
-    };
-    const serviceID = "service_a9sz0qu";
-    const templateID = "template_9q6eoie";
-    emailjs.send(serviceID, templateID, params)
-        .then(res => {
-            console.log(res);
-            alert("Your message sent successfully!!");
-            rate(); // Call rate() after sending the email if that's your intended behavior
-        })
-        .catch(err => console.log(err));
-}
