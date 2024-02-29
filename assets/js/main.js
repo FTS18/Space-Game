@@ -30,7 +30,7 @@ function sendMail() {
     var params = {
         name: ('Client'),
         email: ("teamfinixx@gmail.com"),
-        message: document.getElementById("message").value,
+        message: document.getElementById("message").value
     };
     const serviceID = "service_a9sz0qu";
     const templateID = "template_9q6eoie";
