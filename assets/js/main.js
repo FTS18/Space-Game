@@ -1,6 +1,5 @@
 console.log('Hello World!');
 
-//Ripple Event Handler
 var drawRipple = function(ev) {
     var x = ev.clientX;
     var y = ev.clientY;
@@ -12,7 +11,6 @@ var drawRipple = function(ev) {
     node.parentNode.replaceChild(newNode, node);
 };
 
-//Ripple Triggers
 window.addEventListener("click", drawRipple);
 
 function rate() {
@@ -20,14 +18,13 @@ function rate() {
     promptx.classList.toggle("activez")
 }
 
-//Slide Up on Page Load
 slideTimer = setInterval(function() {
     $('.loading-screen').slideUp();
     $('body').removeClass('disabledScroll');
 }, 1550); //3500
 function sendMail() {
     var params = {
-        name: 'Client', // Removed unnecessary parentheses
+        name: 'Client',
         email: "teamfinixx@gmail.com",
         message: document.getElementById("message").value
     };
@@ -35,7 +32,6 @@ function sendMail() {
     const templateID = "template_9q6eoie";
     emailjs.send(serviceID, templateID, params)
         .then(res => {
-            // Correct way to reset input values
             document.getElementById("message").value = "";
             console.log(res);
             alert("Your message sent successfully!!")
