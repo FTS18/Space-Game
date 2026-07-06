@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta charset="UTF-8">
+    <title>Ludo | Retro Arcade</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jersey+10&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/theme.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script type="module" src="/assets/js/main.js"></script>
+
+    <!-- Compat Firebase SDKs (v10) -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+</head>
+<body class="disabledScroll">
+    <div class="ripple"></div>
+
+    <div id="game-container">
+        <!-- Ludo Board Area -->
+        <div id="board-container">
+            <div id="board">
+                <!-- Javascript will dynamically build cells & tokens here -->
+            </div>
+        </div>
+
+        <!-- Sidebar / Gameplay Control Panel -->
+        <div id="hud-panel">
+            <div class="hud-header">
+                <h2>FINIXX LUDO</h2>
+                <div id="mode-badge">PASS & PLAY</div>
+            </div>
+
+            <!-- Players turn indicators -->
+            <div id="players-list">
+                <div class="player-row green active" data-color="green">
+                    <span class="dot"></span>
+                    <span class="name">GREEN (P1)</span>
+                    <span class="status">ROLLING...</span>
+                </div>
+                <div class="player-row yellow" data-color="yellow">
+                    <span class="dot"></span>
+                    <span class="name">YELLOW (P2)</span>
+                    <span class="status">WAITING</span>
+                </div>
+                <div class="player-row blue" data-color="blue">
+                    <span class="dot"></span>
+                    <span class="name">BLUE (P3)</span>
+                    <span class="status">WAITING</span>
+                </div>
+                <div class="player-row red" data-color="red">
+                    <span class="dot"></span>
+                    <span class="name">RED (P4)</span>
+                    <span class="status">WAITING</span>
+                </div>
+            </div>
+
+            <!-- Interactive Dice Roller Area -->
+            <div class="dice-section">
+                <div class="active-color-banner" id="dice-banner-color">GREEN'S TURN</div>
+                <div id="dice-container" onclick="triggerDiceRoll()">
+                    <div class="dice-tilt">
+                        <div id="dice-3d" class="show-1">
+                        <div class="dice-face front">
+                            <span class="dot middle-center"></span>
+                        </div>
+                        <div class="dice-face back">
+                            <span class="dot top-left"></span><span class="dot top-right"></span>
+                            <span class="dot middle-left"></span><span class="dot middle-right"></span>
+                            <span class="dot bottom-left"></span><span class="dot bottom-right"></span>
+                        </div>
+                        <div class="dice-face right">
+                            <span class="dot top-left"></span><span class="dot bottom-right"></span>
+                        </div>
+                        <div class="dice-face left">
+                            <span class="dot top-left"></span><span class="dot middle-center"></span><span class="dot bottom-right"></span>
+                            <span class="dot top-right"></span><span class="dot bottom-left"></span>
+                        </div>
+                        <div class="dice-face top">
+                            <span class="dot top-left"></span><span class="dot middle-center"></span><span class="dot bottom-right"></span>
+                        </div>
+                        <div class="dice-face bottom">
+                            <span class="dot top-left"></span><span class="dot top-right"></span>
+                            <span class="dot bottom-left"></span><span class="dot bottom-right"></span>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <button class="btn" id="roll-btn" onclick="triggerDiceRoll()">ROLL DICE</button>
+            </div>
+
+            <!-- Game Logs -->
+            <div id="game-logs">
+                <div class="log-entry">Welcome to Finixx Ludo!</div>
+                <div class="log-entry">Select a mode to start playing.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Setup Modal -->
+    <div id="setup-modal" class="game-modal" style="display: flex;">
+        <div class="modal-content">
+            <h2>SELECT GAME MODE</h2>
+            <p>Choose your play mode for Ludo</p>
+            
+            <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px;">
+                <button class="btn mode-select-btn" onclick="setPlayMode('ai')">VS COMPUTER (AI)</button>
+                <button class="btn mode-select-btn" onclick="setPlayMode('local')">LOCAL PASS & PLAY</button>
+                <button class="btn mode-select-btn" onclick="setPlayMode('online')">ONLINE MULTIPLAYER</button>
+            </div>
+
+            <!-- Multi-purpose Option Panels (hidden initially) -->
+            <div id="ai-setup-panel" class="setup-subpanel" style="display: none;">
+                <h3>AI Opponents Configuration</h3>
+                <div style="display: flex; justify-content: center; gap: 10px; margin: 15px 0;">
+                    <button class="btn count-btn selected" onclick="setAICount(1)">1 AI</button>
+                    <button class="btn count-btn" onclick="setAICount(2)">2 AI</button>
+                    <button class="btn count-btn" onclick="setAICount(3)">3 AI</button>
+                </div>
+                <button class="btn" style="width: 100%;" onclick="startLudoGame()">START GAME</button>
+            </div>
+
+            <div id="local-setup-panel" class="setup-subpanel" style="display: none;">
+                <h3>Number of Local Players</h3>
+                <div style="display: flex; justify-content: center; gap: 10px; margin: 15px 0;">
+                    <button class="btn count-btn" onclick="setLocalPlayersCount(2)">2 Players</button>
+                    <button class="btn count-btn" onclick="setLocalPlayersCount(3)">3 Players</button>
+                    <button class="btn count-btn selected" onclick="setLocalPlayersCount(4)">4 Players</button>
+                </div>
+                <button class="btn" style="width: 100%;" onclick="startLudoGame()">START GAME</button>
+            </div>
+
+            <div id="online-setup-panel" class="setup-subpanel" style="display: none;">
+                <h3>Join or Create Room</h3>
+                <div style="display: flex; flex-direction: column; gap: 10px; margin: 15px 0;">
+                    <input type="text" id="player-name-input" placeholder="YOUR NICKNAME" class="room-input">
+                    <button class="btn" onclick="createOnlineRoom()">CREATE NEW ROOM</button>
+                    <div style="border-top: 2px solid #282335; margin: 10px 0; padding-top: 10px; color: #55506a;">OR JOIN EXISTING</div>
+                    <input type="text" id="room-code-input" placeholder="ENTER 4-LETTER CODE" class="room-input" style="text-transform: uppercase;">
+                    <button class="btn" onclick="joinOnlineRoom()">JOIN ROOM</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Online Lobby Waiting Modal -->
+    <div id="lobby-modal" class="game-modal" style="display: none;">
+        <div class="modal-content">
+            <h2>ONLINE LOBBY</h2>
+            <p>Room Code: <span id="lobby-code" style="color: #dfc06f; font-weight: bold; font-size: 24px;">ABCD</span></p>
+            <p style="font-size: 14px; color: #55506a;">Share code with friends. Minimum 2 players to start.</p>
+            
+            <div id="lobby-players-list" style="display: flex; flex-direction: column; gap: 8px; margin: 20px 0; text-align: left; background: #1c1828; padding: 15px; border: 2px solid #282335;">
+                <!-- Joined players will list here -->
+            </div>
+            
+            <div style="display: flex; gap: 10px;">
+                <button class="btn" id="start-online-btn" style="flex: 1; display: none;" onclick="startOnlineMatch()">START GAME</button>
+                <button class="btn" style="flex: 1; background: #5a121c; border-color: #5a121c; color: #fff;" onclick="leaveOnlineLobby()">LEAVE</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- End Game Modal -->
+    <div id="end-modal" class="game-modal" style="display: none;">
+        <div class="modal-content">
+            <h2 id="end-modal-title">GAME OVER</h2>
+            <p id="end-modal-message">Green has won the match!</p>
+            <button class="btn" onclick="window.location.reload()">RETURN TO LOBBY</button>
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>

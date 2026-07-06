@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Scribble | Retro Arcade</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jersey+10&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/theme.css">
+    
+    <!-- Inline Scoped Stylesheet for Neon Cabin Aesthetics -->
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #0e0c15;
+            color: #9692a8;
+            font-family: 'Jersey 10', sans-serif !important;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            box-sizing: border-box;
+        }
+
+        .screen-container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            padding: 15px 25px;
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        /* Header HUD */
+        .hud-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #282335;
+            padding-bottom: 12px;
+            margin-bottom: 15px;
+            flex-shrink: 0;
+        }
+
+        .hud-header h1 {
+            color: #dfc06f;
+            font-size: 38px;
+            margin: 0;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            text-shadow: none;
+        }
+
+        .hud-info {
+            font-size: 26px;
+            color: #fff;
+            letter-spacing: 1.5px;
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .hud-info span span {
+            color: #dfc06f;
+            font-weight: bold;
+        }
+
+        /* Setup / Lobby Overlay Screen */
+        .lobby-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(14, 12, 21, 0.97);
+            z-index: 100;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-sizing: border-box;
+            padding: 20px;
+        }
+
+        .lobby-box {
+            width: 460px;
+            background: rgba(17, 17, 17, 0.95);
+            border: 2px solid #282335;
+            padding: 35px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-sizing: border-box;
+        }
+
+        .lobby-title {
+            font-size: 38px;
+            color: #dfc06f;
+            margin-bottom: 25px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            text-shadow: none;
+        }
+
+        .lobby-input {
+            width: 100%;
+            background: #08060d;
+            border: 2px solid #282335;
+            color: #dfc06f;
+            padding: 12px;
+            font-size: 22px;
+            outline: none;
+            text-align: center;
+            font-family: 'Jersey 10', sans-serif !important;
+            letter-spacing: 1.5px;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+        }
+
+        .lobby-input:focus {
+            border-color: #dfc06f;
+            box-shadow: none;
+        }
+
+        .btn-action {
+            width: 100%;
+            background: #dfc06f;
+            border: 2px solid #dfc06f;
+            color: #0e0c15;
+            padding: 12px;
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
+            text-transform: uppercase;
+            font-family: 'Jersey 10', sans-serif !important;
+            letter-spacing: 1.5px;
+            margin-bottom: 12px;
+            transition: all 0.2s ease;
+            box-sizing: border-box;
+        }
+
+        .btn-action:hover {
+            background: #0e0c15;
+            color: #dfc06f;
+            border-color: #dfc06f;
+        }
+
+        .btn-action.secondary {
+            background: transparent;
+            border-color: #282335;
+            color: #837e96;
+        }
+
+        .btn-action.secondary:hover {
+            background: #1c1828;
+            color: #dfc06f;
+            border-color: #dfc06f;
+        }
+
+        /* Player Lists in Lobby */
+        .lobby-players {
+            width: 100%;
+            max-height: 160px;
+            overflow-y: auto;
+            border: 2px solid #282335;
+            background: #08060d;
+            padding: 10px;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+        }
+
+        .lobby-player-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 24px;
+            color: #fff;
+            padding: 6px 12px;
+            border-bottom: 1px solid #1c1828;
+        }
+
+        /* Main Game Layout Columns */
+        .game-layout {
+            display: flex;
+            flex: 1;
+            width: 100%;
+            gap: 20px;
+            overflow: hidden;
+            box-sizing: border-box;
+        }
+
+        /* Column 1: Scoreboard Panel */
+        .player-scoreboard {
+            width: 200px;
+            background: #08060d;
+            border: 2px solid #1c1828;
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            overflow-y: auto;
+            box-sizing: border-box;
+        }
+
+        .player-card {
+            background: #15002b;
+            border: 2px solid #282335;
+            padding: 10px 14px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 2px;
+            position: relative;
+            box-sizing: border-box;
+            height: 72px;
+            transition: all 0.2s ease;
+        }
+
+        .player-card.is-drawer {
+            border-color: #dfc06f;
+            box-shadow: none;
+        }
+
+        .player-card.is-correct {
+            border-color: #00ff66;
+            background: rgba(0, 255, 102, 0.06);
+            box-shadow: 0 0 10px rgba(0, 255, 102, 0.15);
+        }
+
+        .player-card-name {
+            font-size: 24px;
+            color: #fff;
+            text-transform: uppercase;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            letter-spacing: 0.5px;
+        }
+
+        .player-card-score {
+            font-size: 18px;
+            color: #dfc06f;
+            letter-spacing: 0.5px;
+        }
+
+        /* Column 2: Drawing Bezel & Controls */
+        .drawing-center {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            overflow: hidden;
+            box-sizing: border-box;
+        }
+
+        .word-banner {
+            background: #15002b;
+            border: 2px solid #282335;
+            padding: 12px;
+            text-align: center;
+            font-size: 32px;
+            color: #dfc06f;
+            letter-spacing: 4px;
+            font-weight: bold;
+            text-transform: uppercase;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        .canvas-container {
+            flex: 1;
+            background: #f7f6f9;
+            border: 2px solid #282335;
+            position: relative;
+            cursor: crosshair;
+            box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.15);
+        }
+
+        #drawing-canvas {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+        }
+
+        /* Brush Controls Bezel */
+        .brush-toolbar {
+            background: #08060d;
+            border: 2px solid #1c1828;
+            padding: 10px 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-shrink: 0;
+            box-sizing: border-box;
+        }
+
+        .brush-colors {
+            display: flex;
+            gap: 8px;
+        }
+
+        .color-dot {
+            width: 32px;
+            height: 32px;
+            border: 2px solid #282335;
+            cursor: pointer;
+            border-radius: 50%;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+        }
+
+        .color-dot:hover {
+            transform: scale(1.15);
+        }
+
+        .color-dot.active {
+            transform: scale(1.2);
+            border-color: #dfc06f;
+            box-shadow: 0 0 10px #dfc06f;
+        }
+
+        .brush-sizes {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .size-btn {
+            background: #1c1828;
+            border: 2px solid #282335;
+            color: #9692a8;
+            padding: 6px 14px;
+            font-size: 18px;
+            font-family: 'Jersey 10', sans-serif !important;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            letter-spacing: 0.5px;
+        }
+
+        .size-btn:hover:not(:disabled) {
+            border-color: #dfc06f;
+            color: #fff;
+        }
+
+        .size-btn.active {
+            background: #dfc06f;
+            color: #0e0c15;
+            border-color: #dfc06f;
+            box-shadow: none;
+        }
+
+        .size-btn:disabled {
+            background: #110f1a;
+            color: #55506a;
+            border-color: #1c1828;
+            cursor: not-allowed;
+            box-shadow: none !important;
+        }
+
+        /* Column 3: Guess / Chat Bezel */
+        .chat-sidebar {
+            width: 290px;
+            background: #08060d;
+            border: 2px solid #1c1828;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            box-sizing: border-box;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            box-sizing: border-box;
+            font-family: 'Jersey 10', sans-serif !important;
+        }
+
+        .chat-msg {
+            font-size: 20px;
+            color: #9692a8;
+            word-wrap: break-word;
+            letter-spacing: 0.5px;
+            line-height: 1.25;
+        }
+
+        .chat-msg.correct {
+            color: #00ff66;
+            font-weight: bold;
+            background: rgba(0, 255, 102, 0.08);
+            border: 1px solid rgba(0, 255, 102, 0.2);
+            padding: 4px 8px;
+        }
+
+        .chat-msg.system {
+            color: #dfc06f;
+            background: rgba(223, 192, 111, 0.08);
+            border: 1px solid rgba(223, 192, 111, 0.2);
+            padding: 4px 8px;
+        }
+
+        .chat-form {
+            border-top: 2px solid #1c1828;
+            padding: 10px;
+            display: flex;
+            gap: 8px;
+            flex-shrink: 0;
+            box-sizing: border-box;
+        }
+
+        .chat-input {
+            flex: 1;
+            background: #0e0c15;
+            border: 2px solid #282335;
+            color: #dfc06f;
+            padding: 8px 12px;
+            font-size: 18px;
+            outline: none;
+            font-family: 'Jersey 10', sans-serif !important;
+            letter-spacing: 0.5px;
+            box-sizing: border-box;
+        }
+
+        .chat-input:focus {
+            border-color: #dfc06f;
+        }
+
+        .chat-input:disabled {
+            background: #110f1a;
+            color: #55506a;
+            border-color: #1c1828;
+            cursor: not-allowed;
+        }
+
+        /* Choice overlay Dialog */
+        .choice-dialog-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(14, 12, 21, 0.93);
+            z-index: 80;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-sizing: border-box;
+        }
+
+        .choice-dialog {
+            background: #0e0c15;
+            border: 2px solid #282335;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+            width: 400px;
+            box-sizing: border-box;
+        }
+
+        .choice-btn {
+            background: #1c1828;
+            border: 2px solid #282335;
+            color: #fff;
+            padding: 12px;
+            width: 100%;
+            font-size: 24px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            text-transform: uppercase;
+            font-family: 'Jersey 10', sans-serif !important;
+            transition: all 0.2s ease;
+        }
+
+        .choice-btn:hover {
+            background: #dfc06f;
+            color: #0e0c15;
+            border-color: #dfc06f;
+        }
+
+        /* How to Play Banner */
+        .how-to-play-badge {
+            font-size: 16px;
+            color: #837e96;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            border: 1px solid #282335;
+            padding: 4px 10px;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+        }
+
+        .how-to-play-badge:hover {
+            color: #dfc06f;
+            border-color: #dfc06f;
+        }
+
+        /* Toast Notifications */
+        .toast-container {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            pointer-events: none;
+        }
+        .toast {
+            background: #0e0c15;
+            border: 2px solid #dfc06f;
+            color: #fff;
+            padding: 10px 20px;
+            font-size: 20px;
+            font-family: 'Jersey 10', sans-serif;
+            text-transform: uppercase;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+            animation: slideDown 0.3s ease forwards;
+            opacity: 1;
+            transition: opacity 0.5s ease;
+        }
+        @keyframes slideDown {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+    </style>
+
+    <!-- Compat Firebase SDKs (v10) -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+</head>
+<body>
+
+    <div class="toast-container" id="toast-container"></div>
+
+    <div class="screen-container">
+        
+        <!-- Header HUD -->
+        <div class="hud-header">
+            <div style="display: flex; align-items: center; gap: 15px;">
+                <h1>Scribble</h1>
+                <button class="size-btn secondary" id="btn-quit-game" style="font-size: 16px; padding: 4px 10px; display: none;">LEAVE CABINET</button>
+                <div class="how-to-play-badge" id="btn-show-rules">
+                    <span style="font-family: 'Poppins', sans-serif; font-weight: 600;">?</span> HOW TO PLAY
+                </div>
+            </div>
+            <div class="hud-info">
+                <span>ROUND: <span id="hud-round">Waiting</span></span>
+                <span>TIMER: <span id="hud-timer">--</span>s</span>
+            </div>
+        </div>
+
+        <!-- Main game board -->
+        <div class="game-layout">
+            
+            <!-- Column 1: Scoreboard list -->
+            <div id="player-list-panel" class="player-scoreboard">
+                <!-- Players injected dynamically -->
+            </div>
+
+            <!-- Column 2: Draw field -->
+            <div class="drawing-center">
+                <div id="word-display" class="word-banner">
+                    CHOOSE / JOIN ROOM
+                </div>
+                
+                <div class="canvas-container" id="canvas-container">
+                    <canvas id="drawing-canvas"></canvas>
+                </div>
+
+                <!-- Drawer Toolbar -->
+                <div class="brush-toolbar" id="drawer-toolbar" style="display: none;">
+                    <div class="brush-colors">
+                        <div class="color-dot active" style="background: #000000;" data-color="#000000"></div>
+                        <div class="color-dot" style="background: #ff0146;" data-color="#ff0146"></div>
+                        <div class="color-dot" style="background: #0088ff;" data-color="#0088ff"></div>
+                        <div class="color-dot" style="background: #00ff66;" data-color="#00ff66"></div>
+                        <div class="color-dot" style="background: #dfc06f;" data-color="#dfc06f"></div>
+                        <div class="color-dot" style="background: #ffffff;" data-color="#ffffff"></div>
+                        <div class="color-dot" style="background: #f7f6f9; border: 2px dashed #9692a8;" data-color="#f7f6f9" title="Eraser"></div>
+                    </div>
+                    <div class="brush-sizes">
+                        <button class="size-btn active" data-size="4">S</button>
+                        <button class="size-btn" data-size="8">M</button>
+                        <button class="size-btn" data-size="16">L</button>
+                        <button class="size-btn secondary" id="btn-clear-canvas" style="margin-left: 10px;">CLEAR</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Column 3: Chat and guessing -->
+            <div class="chat-sidebar">
+                <div id="chat-box" class="chat-messages">
+                    <!-- Chat messages injected dynamically -->
+                </div>
+                <form id="chat-form" class="chat-form" onsubmit="return false;">
+                    <input type="text" id="chat-input" class="chat-input" placeholder="Type guess..." autocomplete="off" disabled>
+                    <button class="size-btn" id="btn-send-chat" style="padding: 0 15px;" disabled>SEND</button>
+                </form>
+            </div>
+
+        </div>
+
+        <!-- Lobby Overlay Modal (Create / Join / Waiting) -->
+        <div id="lobby-overlay" class="lobby-overlay">
+            <div class="lobby-box" id="lobby-setup-view">
+                <div class="lobby-title">Scribble Cabinet</div>
+                
+                <input type="text" id="player-name-input" class="lobby-input" placeholder="ENTER YOUR NAME" maxlength="12">
+                
+                <button class="btn-action" id="btn-create-room">CREATE PRIVATE CABINET</button>
+                
+                <div style="display: flex; width: 100%; gap: 10px;">
+                    <input type="text" id="room-code-input" class="lobby-input" style="width: 50%; margin-bottom: 0;" placeholder="ROOM CODE" maxlength="4">
+                    <button class="btn-action" id="btn-join-room" style="width: 50%; margin-bottom: 0;">JOIN CABINET</button>
+                </div>
+            </div>
+
+            <div class="lobby-box" id="lobby-waiting-view" style="display: none;">
+                <div class="lobby-title">CABINET LOBBY</div>
+                <div style="font-size: 26px; color: #dfc06f; margin-bottom: 15px;">
+                    ROOM CODE: <span id="lobby-code-display" style="color: #fff; font-weight: bold;">----</span>
+                </div>
+                
+                <div class="lobby-players" id="lobby-players-list">
+                    <!-- Players wait list -->
+                </div>
+
+                <button class="btn-action" id="btn-start-game" style="display: none;">START LOBBY</button>
+                <div id="host-wait-msg" style="color: #55506a; font-size: 20px; text-align: center; margin-bottom: 10px;">
+                    WAITING FOR HOST TO START...
+                </div>
+                <button class="btn-action secondary" id="btn-leave-lobby">LEAVE CABINET</button>
+            </div>
+        </div>
+
+        <!-- Drawer choice popup overlay -->
+        <div id="choice-dialog-overlay" class="choice-dialog-overlay" style="display: none;">
+            <div class="choice-dialog">
+                <div style="font-size: 26px; color: #dfc06f; margin-bottom: 20px; text-transform: uppercase;">
+                    CHOOSE A WORD TO DRAW!
+                </div>
+                <div id="word-choices-container">
+                    <!-- Choices injected -->
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Script File -->
+    <script src="scribble.js"></script>
+</body>
+</html>

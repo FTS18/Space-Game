@@ -1,4 +1,0 @@
-
-       const names = []
-       const passwords = []
-   

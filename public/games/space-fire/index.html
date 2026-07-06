@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script type="module" src="/assets/js/main.js"></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Jersey+10&display=swap');
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+body, button, input, select, textarea {
+    font-family: 'Jersey 10', sans-serif;
+}
+#canvas-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+canvas {
+    border: none;
+    background-color: black;
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+}
+.button {
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+.button1 {background-color: GREEN;}
+.button2 {background-color: RED;}
+.button3 {background-color: BLUE;}
+
+/* Custom Inline Game Over / Win Modal */
+.game-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(14, 12, 21, 0.85);
+    backdrop-filter: blur(5px);
+    z-index: 10000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: #0e0c15;
+    border: 2px solid #282335;
+    padding: 30px 40px;
+    text-align: center;
+    max-width: 380px;
+    width: 90%;
+    box-sizing: border-box;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    color: white;
+}
+
+.modal-content h2 {
+    color: #dfc06f !important;
+    font-size: 40px;
+    margin: 0 0 15px 0 !important;
+    letter-spacing: 2px;
+}
+
+.modal-content p {
+    color: #9692a8 !important;
+    font-size: 20px;
+    margin: 0 0 25px 0 !important;
+    line-height: 1.4;
+    letter-spacing: 1px;
+}
+
+.modal-content p span {
+    color: #ffffff !important;
+    font-weight: bold;
+}
+
+.modal-btn {
+    background: #dfc06f;
+    color: #0e0c15;
+    border: 2px solid #dfc06f;
+    padding: 10px 25px;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: 'Jersey 10', sans-serif;
+    letter-spacing: 1px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.2s ease;
+}
+
+.modal-btn:hover {
+    background: #0e0c15;
+    color: #dfc06f;
+}
+</style>
+</head>
+<body bgcolor="BLACK" style="margin: 0; padding: 0; overflow: hidden;">
+    <div id="canvas-container"></div>
+
+    <!-- Custom Start Screen Modal -->
+    <div id="start-modal" class="game-modal" style="display: flex;">
+        <div class="modal-content">
+            <h2>SPACE FIRE</h2>
+            <p>For firing bullets to collect coins, press SPACEBAR and aim at the UFO. Multiple bullets may be needed to collect each coin.</p>
+            <button class="modal-btn" onclick="startGame()">START GAME</button>
+        </div>
+    </div>
+
+    <!-- Custom Game Over Modal -->
+    <div id="game-modal" class="game-modal" style="display: none;">
+        <div class="modal-content">
+            <h2>GAME OVER</h2>
+            <p>UFOs Destroyed: <span id="modal-ufo-score">0</span></p>
+            <p>Score: <span id="modal-score">0</span></p>
+            <button class="modal-btn" onclick="restartGame()">RESTART</button>
+        </div>
+    </div>
+
+<script>
+var myObstacles = [];
+var myMusic;
+var myscore;
+var myovers;
+var myscores;
+var myscorec;
+var mybackground;
+var mysound;
+var mypos;
+var myposs;
+var mybullet;
+var mybulletspeed;
+var mybullet1;
+var mybulletsound;
+var mycoin;
+var mycs;
+var coinscore;
+var zeros;
+var mycsl;
+var myGamePiece;
+var ufo;
+var ufobullet;
+var myhealth;
+var health;
+var bulletIntervalId = null;
+
+// Realistic space physics variables
+var shipVx = 0;
+var shipVy = 0;
+var shipAccel = 0.4;
+var shipFriction = 0.93;
+var shipMaxSpeed = 8;
+
+// Bullets list and cooldowns
+var playerBullets = [];
+var lastShotTime = 0;
+var shotCooldown = 220; // ms between shots
+
+var shakeDuration = 0;
+var particles = [];
+
+function createDebris(x, y) {
+    for (var i = 0; i < 8; i++) {
+        particles.push({
+            x: x,
+            y: y,
+            vx: (Math.random() * 2 - 1) * 3,
+            vy: (Math.random() * 2 - 1) * 3,
+            size: Math.random() * 3 + 2,
+            color: "#dfc06f",
+            alpha: 1.0
+        });
+    }
+}
+
+function startGame() {
+    // Hide modals
+    var startModal = document.getElementById('start-modal');
+    var gameModal = document.getElementById('game-modal');
+    if (startModal) startModal.style.display = 'none';
+    if (gameModal) gameModal.style.display = 'none';
+
+    // Clear canvas container
+    var container = document.getElementById('canvas-container');
+    if (container) container.innerHTML = '';
+
+    shipVx = 0;
+    shipVy = 0;
+    playerBullets = [];
+    myObstacles = [];
+    particles = [];
+    lastShotTime = 0;
+    if (bulletIntervalId) {
+        clearInterval(bulletIntervalId);
+        bulletIntervalId = null;
+    }
+
+    myGamePiece = new component(160, 90, "ghg.png", 10, 120, "image");
+    mybackground = new component(1490, 650, "background.jpg", 0, 0, "background");
+    myMusic = new sound("");
+    mysound = new sound("ACRON.mp3");
+    myscore = new component("15px", "Consolas", "yellow", 1300, 15, "text");
+    myhealth = new component("15px", "Consolas", "yellow", 1300, 15, "text");
+    myovers = new component("100px", "Consolas", "red", 500, 300, "text");
+    myscores = new component("50px", "Consolas", "yellow", 550, 450, "text");
+    mycs = new component("15px", "Consolas", "yellow", 1000, 15, "text");
+    mybulletsound = new sound("bullet.mp3");
+    
+    // Dynamic canvas size spawn
+    var startWidth = window.innerWidth || 1490;
+    var startHeight = window.innerHeight || 650;
+    mycoin = new component(100, 50, "UFO2.png", Math.floor((Math.random() * (startWidth - 200)) + 100), Math.floor((Math.random() * (startHeight - 200)) + 100), "image");
+    
+    mybullet = new component(20, 10, "h.jpg", myGamePiece.x, myGamePiece.y + 37, "image");
+    mybullet1 = new component(20, 10, "h.jpg", myGamePiece.x + 30, myGamePiece.y + 37, "image");
+    myGameArea.start();
+    mysound.play();
+    
+    coinscore = 0;
+    health = 0;
+    zeros = 1;
+    mycsl = new component("25px", "Consolas", "yellow", 650, 500, "text");
+    myhealth = new component("25px", "Consolas", "yellow", 500, 500, "text");
+    ufobullet = new component(20, 10, "h.jpg", -100, -100, "image");
+}
+
+var myGameArea = {
+    canvas : document.createElement("canvas"),
+    start : function() {
+        this.canvas.width = window.innerWidth || 1490;
+        this.canvas.height = window.innerHeight || 650;
+        this.context = this.canvas.getContext("2d");
+        var container = document.getElementById('canvas-container');
+        if (container) container.appendChild(this.canvas);
+        this.frameNo = 0;
+        this.interval = setInterval(updateGameArea, 20);
+        
+        window.addEventListener('keydown', function (e) {
+            if ([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1) {
+                e.preventDefault();
+            }
+            myGameArea.key = e.keyCode;
+        })
+        window.addEventListener('keyup', function (e) {
+            if ([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1) {
+                e.preventDefault();
+            }
+            myGameArea.key = false;
+        })
+        
+        // Touch controls
+        this.canvas.addEventListener('touchstart', function(e) {
+            myGameArea.key = 32; // Spacebar to fire
+            e.preventDefault();
+        }, { passive: false });
+        
+        this.canvas.addEventListener('touchmove', function(e) {
+            var touch = e.touches[0];
+            var rect = myGameArea.canvas.getBoundingClientRect();
+            var touchX = touch.clientX - rect.left;
+            var touchY = touch.clientY - rect.top;
+            var dx = touchX - (myGamePiece.x + myGamePiece.width / 2);
+            var dy = touchY - (myGamePiece.y + myGamePiece.height / 2);
+            shipVx += dx * 0.05;
+            shipVy += dy * 0.05;
+            e.preventDefault();
+        }, { passive: false });
+        
+        this.canvas.addEventListener('touchend', function(e) {
+            myGameArea.key = false;
+        });
+        },
+    clear : function() {
+        this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    },
+    stop : function() {
+        clearInterval(this.interval);
+        if (bulletIntervalId) clearInterval(bulletIntervalId);
+        if (mysound) mysound.stop();
+        myGameArea.clear();
+        var ufoEl = document.getElementById('modal-ufo-score');
+        var scoreEl = document.getElementById('modal-score');
+        var gameModal = document.getElementById('game-modal');
+        var finalScore = (coinscore * 100) + Math.floor(this.frameNo / 10);
+        if (ufoEl) ufoEl.innerText = coinscore;
+        if (scoreEl) scoreEl.innerText = finalScore;
+        if (gameModal) gameModal.style.display = 'flex';
+        if (window.parent) {
+            window.parent.postMessage({
+                type: 'FINIXX_GAME_OVER',
+                game: 'space-fire',
+                score: finalScore
+            }, '*');
+        }
+    },
+    nextlevel : function() {
+        clearInterval(this.interval);
+        if (bulletIntervalId) clearInterval(bulletIntervalId);
+        if (mysound) mysound.stop();
+        myGameArea.clear();
+        var finalScore = (coinscore * 100) + Math.floor(this.frameNo / 10);
+        myovers.text="LEVEL 1 COMPLETE.";
+        myovers.update();
+        myscores.text="YOU SCORE: " + finalScore;
+        myscores.update();
+        mycsl.text="UFO DESTROYED:" + coinscore;
+        mycsl.update();
+        myGameArea.start();
+        var x = document.getElementById("back");
+        if (x) x.textContent = "BACK";
+    }
+}
+
+function component(width, height, color, x, y, type) {
+    this.type = type;
+    if (type == "image" || type == "background") {
+        this.image = new Image();
+        this.image.src = color;
+    }
+    this.width = width;
+    this.height = height;
+    this.speedX = 0;
+    this.speedY = 0;    
+    this.x = x;
+    this.y = y;    
+    this.update = function() {
+        ctx = myGameArea.context;
+        ctx.save();
+        if (this.type == "text" ) {
+            ctx.font = this.width + " " + this.height;
+            ctx.fillStyle = color;
+            ctx.fillText(this.text, this.x, this.y);
+        } else if (type == "image") {
+            ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
+        } else if (type == "background") {
+            ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
+            ctx.drawImage(this.image, this.x + this.width, this.y, this.width, this.height);
+        } else {
+            ctx.fillStyle = color;
+            ctx.fillRect(this.x, this.y, this.width, this.height);
+        }
+        ctx.restore();
+    }
+    this.newPos = function() {
+        this.x += this.speedX;
+        this.y += this.speedY; 
+        if (this.type == "background") {
+            if (this.x == -(this.width)) {
+                this.x = 0;
+            }
+        }       
+    }
+    this.crashWith = function(otherobj) {
+        var myleft = this.x;
+        var myright = this.x + (this.width);
+        var mytop = this.y;
+        var mybottom = this.y + (this.height);
+        var otherleft = otherobj.x;
+        var otherright = otherobj.x + (otherobj.width);
+        var othertop = otherobj.y;
+        var otherbottom = otherobj.y + (otherobj.height);
+        var crash = true;
+        if ((mybottom < othertop) || (mytop > otherbottom) || (myright < otherleft) || (myleft > otherright)) {
+            crash = false;
+        }
+        return crash;
+    }
+}
+
+function updateGameArea() {
+    var x, height, gap, minHeight, maxHeight, minGap, maxGap;
+    
+    // Check collision with obstacles
+    for (i = 0; i < myObstacles.length; i += 1) {
+        if (myGamePiece.crashWith(myObstacles[i])) {
+            if (window.playExplosionSound) window.playExplosionSound();
+            createDebris(myGamePiece.x + 80, myGamePiece.y + 45);
+            mysound.stop();
+            myMusic.play();
+            myGameArea.stop();
+            return;
+        } 
+    }
+    
+    myGameArea.clear();
+    var ctx = myGameArea.context;
+    ctx.save();
+    if (shakeDuration > 0) {
+        var shakeX = Math.random() * 10 - 5;
+        var shakeY = Math.random() * 10 - 5;
+        ctx.translate(shakeX, shakeY);
+        shakeDuration--;
+    }
+
+    mybackground.speedX = -1;
+    mybackground.newPos();    
+    mybackground.update();
+
+    // Floating UFO movement (aim target)
+    if (!mycoin.floatDir) mycoin.floatDir = 1;
+    mycoin.y += mycoin.floatDir * 1.2;
+    if (mycoin.y < 40) {
+        mycoin.y = 40;
+        mycoin.floatDir = 1;
+    }
+    if (mycoin.y > 560) {
+        mycoin.y = 560;
+        mycoin.floatDir = -1;
+    }
+    mycoin.update();
+
+    // Space physics velocity updates
+    if (myGameArea.key) {
+        if (myGameArea.key == 37) { shipVx -= shipAccel; } // Left
+        if (myGameArea.key == 39) { shipVx += shipAccel; } // Right
+        if (myGameArea.key == 38) { shipVy -= shipAccel; } // Up
+        if (myGameArea.key == 40) { shipVy += shipAccel; } // Down
+    }
+
+    // Friction deceleration
+    shipVx *= shipFriction;
+    shipVy *= shipFriction;
+
+    // Clamp to max speeds
+    if (shipVx > shipMaxSpeed) shipVx = shipMaxSpeed;
+    if (shipVx < -shipMaxSpeed) shipVx = -shipMaxSpeed;
+    if (shipVy > shipMaxSpeed) shipVy = shipMaxSpeed;
+    if (shipVy < -shipMaxSpeed) shipVy = -shipMaxSpeed;
+
+    // Position updates
+    myGamePiece.x += shipVx;
+    myGamePiece.y += shipVy;
+
+    // Boundary checks to stay fully on screen
+    if (myGamePiece.x < 0) {
+        myGamePiece.x = 0;
+        shipVx = 0;
+    }
+    if (myGamePiece.x > myGameArea.canvas.width - myGamePiece.width) {
+        myGamePiece.x = myGameArea.canvas.width - myGamePiece.width;
+        shipVx = 0;
+    }
+    if (myGamePiece.y < 0) {
+        myGamePiece.y = 0;
+        shipVy = 0;
+    }
+    if (myGamePiece.y > myGameArea.canvas.height - myGamePiece.height) {
+        myGamePiece.y = myGameArea.canvas.height - myGamePiece.height;
+        shipVy = 0;
+    }
+
+    myGamePiece.update();
+    myscore.text="SCORE: " + myGameArea.frameNo;
+    myscore.update();
+    mycs.text="UFO DESTROYED: " + coinscore;
+    mycs.update();
+    myhealth.text="HEALTH:" + health;
+    myhealth.update();
+    
+    myGameArea.frameNo += 1;
+    
+    // Spawn Asteroids
+    if (myGameArea.frameNo == 1 || everyinterval(300)) {
+        x = myGameArea.canvas.width;
+        minHeight = 85;
+        maxHeight = myGameArea.canvas.height - 80;
+        height = Math.floor(Math.random()*(maxHeight-minHeight+1)+minHeight);
+        minGap = 150;
+        maxGap = 350;
+        gap = Math.floor(Math.random()*(maxGap-minGap+1)+minGap);
+        myObstacles.push(new component(25, height, "asteriod.png", x, 0, "image"));
+        myObstacles.push(new component(25, x - height - gap, "asteriod2.png", x, height + gap, "image"));
+    }
+    
+    // Update Asteroids (Clean up off-screen to avoid leak)
+    for (i = myObstacles.length - 1; i >= 0; i -= 1) {
+        myObstacles[i].x += -1.5;
+        myObstacles[i].update();
+        if (myObstacles[i].x < -100) {
+            myObstacles.splice(i, 1);
+        }
+    }
+    
+    // Handle spacebar laser shooting with cooldown
+    if (myGameArea.key && myGameArea.key == 32) {
+        var now = Date.now();
+        if (now - lastShotTime > shotCooldown) {
+            // Push a new gold bullet component
+            playerBullets.push(new component(24, 6, "#dfc06f", myGamePiece.x + 145, myGamePiece.y + 42));
+            if (window.playLaserSound) window.playLaserSound();
+            lastShotTime = now;
+        }
+    }
+    
+    // Update and draw active bullets
+    for (var b = playerBullets.length - 1; b >= 0; b--) {
+        var bullet = playerBullets[b];
+        bullet.x += 12; // bullet travel speed
+        bullet.update();
+        
+        // Bounding box crash check with UFO
+        if (bullet.crashWith(mycoin)) {
+            coinscore += 1;
+            if (window.playCoinSound) window.playCoinSound();
+            createDebris(bullet.x, bullet.y);
+            // Respawn UFO randomly on screen
+            var safeW = myGameArea.canvas.width - 200;
+            var safeH = myGameArea.canvas.height - 100;
+            mycoin = new component(100, 50, "UFO2.png", Math.floor((Math.random() * (safeW / 2)) + (safeW / 2)), Math.floor((Math.random() * safeH) + 50), "image");
+            bulletfire(); // targeted shootback
+            playerBullets.splice(b, 1);
+            continue;
+        }
+        
+        // Remove off-screen bullets
+        if (bullet.x > myGameArea.canvas.width + 50) {
+            playerBullets.splice(b, 1);
+        }
+    }
+
+    // Update and draw targeted UFO Bullet
+    ufobullet.x += ufobullet.speedX;
+    ufobullet.y += ufobullet.speedY;
+    ufobullet.update();
+
+    // Check UFO Bullet crash with Player ship
+    if (ufobullet.crashWith(myGamePiece)) {
+        health += 1;
+        shakeDuration = 15;
+        if (window.playExplosionSound) window.playExplosionSound();
+        ufobullet.x = -100; // Reset off-screen to avoid multi-frame crash deductions!
+        
+        if (health >= 5) {
+            mysound.stop();
+            myMusic.play();
+            myGameArea.stop();
+            return;
+        }
+    }
+
+    if (myGameArea.frameNo == 1) {
+        bulletfire();
+        if (bulletIntervalId) clearInterval(bulletIntervalId);
+        bulletIntervalId = setInterval(bulletfire, 10000); // Shoot every 10s
+    }
+
+    // Update and draw active particles
+    for (var p = particles.length - 1; p >= 0; p--) {
+        var part = particles[p];
+        part.x += part.vx;
+        part.y += part.vy;
+        part.alpha -= 0.03;
+        if (part.alpha <= 0) {
+            particles.splice(p, 1);
+            continue;
+        }
+        ctx.save();
+        ctx.globalAlpha = part.alpha;
+        ctx.fillStyle = part.color;
+        ctx.fillRect(part.x, part.y, part.size, part.size);
+        ctx.restore();
+    }
+
+    ctx.restore();
+}
+
+function bulletfire() { 
+    ufobullet = new component(20, 10, "h.jpg", mycoin.x, mycoin.y + 20, "image");
+    
+    // Calculate targeted directional vectors to player ship
+    var dx = myGamePiece.x - mycoin.x;
+    var dy = myGamePiece.y - mycoin.y;
+    var dist = Math.sqrt(dx*dx + dy*dy);
+    
+    // Normalize speed to approx 6.5px per frame
+    ufobullet.speedX = (dx / dist) * 6.5;
+    ufobullet.speedY = (dy / dist) * 6.5;
+}
+function sound(src) {
+    if (!src) {
+        this.play = function(){};
+        this.stop = function(){};
+        return;
+    }
+    this.sound = document.createElement("audio");
+    this.sound.src = src;
+    this.sound.setAttribute("preload", "auto");
+    this.sound.setAttribute("controls", "none");
+    this.sound.style.display = "none";
+    this.sound.loop = true;
+    document.body.appendChild(this.sound);
+    this.play = function(){
+        this.sound.play().catch(function(e) { console.log("Audio play blocked/failed: ", e); });
+    }
+    this.stop = function(){
+        this.sound.pause();
+    }   
+}
+
+function everyinterval(n) {
+    if ((myGameArea.frameNo / n) % 1 == 0) {return true;}
+    return false;
+}
+
+function restartGame() {
+    window.location.reload();
+}
+</script>
+</body>
+</html>
