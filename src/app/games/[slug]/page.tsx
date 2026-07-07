@@ -24,12 +24,21 @@ export default function GamePage({ params }: GamePageProps): React.JSX.Element {
     Array<{ username: string; score: number }>
   >([]);
   const [showMobileScores, setShowMobileScores] = React.useState(false);
-  const [isMuted, setIsMuted] = React.useState(() => {
+  const [isMuted, setIsMuted] = React.useState(false);
+
+  React.useEffect(() => {
     if (typeof window !== "undefined") {
-      return localStorage.getItem("finixx_muted") === "true";
+      if (localStorage.getItem("finixx_muted") === "true") {
+        setIsMuted(true);
+      }
     }
-    return false;
-  });
+  }, []);
+
+  React.useEffect(() => {
+    if (iframeRef.current?.contentWindow) {
+      iframeRef.current.contentWindow.postMessage({ type: 'FINIXX_MUTE', muted: isMuted }, '*');
+    }
+  }, [isMuted]);
 
   // Hide mobile top header on game page for max screen real estate
   React.useEffect(() => {
