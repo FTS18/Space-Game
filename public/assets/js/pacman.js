@@ -1,4 +1,135 @@
+// Web Audio API Synthesizer for Retro Sound Effects
+class PacmanAudio {
+  constructor() {
+    this.ctx = null;
+  }
+  init() {
+    if (!this.ctx) {
+      this.ctx = new (window.AudioContext || window.webkitAudioContext)();
+    }
+    if (this.ctx.state === 'suspended') {
+      this.ctx.resume();
+    }
+  }
+  playChomp() {
+    this.init();
+    if (!this.ctx) return;
+    const t = this.ctx.currentTime;
+    const osc = this.ctx.createOscillator();
+    const gain = this.ctx.createGain();
+    
+    osc.type = 'triangle';
+    osc.frequency.setValueAtTime(250, t);
+    osc.frequency.exponentialRampToValueAtTime(550, t + 0.08);
+    
+    gain.gain.setValueAtTime(0.06, t);
+    gain.gain.exponentialRampToValueAtTime(0.001, t + 0.08);
+    
+    osc.connect(gain);
+    gain.connect(this.ctx.destination);
+    
+    osc.start(t);
+    osc.stop(t + 0.08);
+  }
+  playPowerPellet() {
+    this.init();
+    if (!this.ctx) return;
+    const t = this.ctx.currentTime;
+    const osc = this.ctx.createOscillator();
+    const gain = this.ctx.createGain();
+    
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(500, t);
+    osc.frequency.exponentialRampToValueAtTime(950, t + 0.15);
+    
+    gain.gain.setValueAtTime(0.1, t);
+    gain.gain.exponentialRampToValueAtTime(0.001, t + 0.15);
+    
+    osc.connect(gain);
+    gain.connect(this.ctx.destination);
+    
+    osc.start(t);
+    osc.stop(t + 0.15);
+  }
+  playDeath() {
+    this.init();
+    if (!this.ctx) return;
+    const t = this.ctx.currentTime;
+    const osc = this.ctx.createOscillator();
+    const gain = this.ctx.createGain();
+    
+    osc.type = 'sawtooth';
+    osc.frequency.setValueAtTime(450, t);
+    osc.frequency.linearRampToValueAtTime(80, t + 0.85);
+    
+    gain.gain.setValueAtTime(0.15, t);
+    gain.gain.exponentialRampToValueAtTime(0.001, t + 0.85);
+    
+    osc.connect(gain);
+    gain.connect(this.ctx.destination);
+    
+    osc.start(t);
+    osc.stop(t + 0.85);
+  }
+  playGhostEat() {
+    this.init();
+    if (!this.ctx) return;
+    const t = this.ctx.currentTime;
+    const osc = this.ctx.createOscillator();
+    const gain = this.ctx.createGain();
+    
+    osc.type = 'square';
+    osc.frequency.setValueAtTime(300, t);
+    osc.frequency.linearRampToValueAtTime(1200, t + 0.25);
+    
+    gain.gain.setValueAtTime(0.12, t);
+    gain.gain.exponentialRampToValueAtTime(0.001, t + 0.25);
+    
+    osc.connect(gain);
+    gain.connect(this.ctx.destination);
+    
+    osc.start(t);
+    osc.stop(t + 0.25);
+  }
+  playIntro() {
+    this.init();
+    if (!this.ctx) return;
+    const notes = [
+      { f: 240, d: 0.11 },
+      { f: 480, d: 0.11 },
+      { f: 360, d: 0.11 },
+      { f: 300, d: 0.11 },
+      { f: 480, d: 0.11 },
+      { f: 360, d: 0.11 },
+      { f: 300, d: 0.22 }
+    ];
+    let time = this.ctx.currentTime;
+    notes.forEach(note => {
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+      osc.type = 'square';
+      osc.frequency.setValueAtTime(note.f, time);
+      gain.gain.setValueAtTime(0.05, time);
+      gain.gain.exponentialRampToValueAtTime(0.001, time + note.d);
+      osc.connect(gain);
+      gain.connect(this.ctx.destination);
+      osc.start(time);
+      osc.stop(time + note.d);
+      time += note.d + 0.02;
+    });
+  }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
+  const audio = new PacmanAudio();
+
+  // Play intro tune on first user click anywhere inside iframe
+  document.body.addEventListener('click', () => {
+    audio.playIntro();
+  }, { once: true });
+  document.body.addEventListener('touchstart', () => {
+    audio.playIntro();
+  }, { once: true });
 
   const scoreDisplay = document.getElementById('score')
   const width = 28
@@ -80,6 +211,30 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   document.addEventListener('keydown', handleKeyDown)
 
+  // Touch Swipe Gesture Recognition (Snappier control)
+  let touchStartX = 0;
+  let touchStartY = 0;
+
+  document.addEventListener('touchstart', e => {
+    touchStartX = e.changedTouches[0].screenX;
+    touchStartY = e.changedTouches[0].screenY;
+  }, { passive: true });
+
+  document.addEventListener('touchend', e => {
+    const touchEndX = e.changedTouches[0].screenX;
+    const touchEndY = e.changedTouches[0].screenY;
+    const dx = touchEndX - touchStartX;
+    const dy = touchEndY - touchStartY;
+    
+    if (Math.max(Math.abs(dx), Math.abs(dy)) > 25) {
+      if (Math.abs(dx) > Math.abs(dy)) {
+        nextDirection = dx > 0 ? 1 : -1;
+      } else {
+        nextDirection = dy > 0 ? width : -width;
+      }
+    }
+  }, { passive: true });
+
   const pacmanTimer = setInterval(function() {
     if (!nextDirection && !currentDirection) return;
 
@@ -138,7 +293,7 @@ document.addEventListener('DOMContentLoaded', () => {
       score++
       scoreDisplay.innerHTML = score
       squares[pacmanCurrentIndex].classList.remove('pac-dot')
-      if (window.playCoinSound) window.playCoinSound();
+      audio.playChomp();
     }
   }
 
@@ -147,7 +302,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (squares[pacmanCurrentIndex].classList.contains('power-pellet')) {
       score += 10
       scoreDisplay.innerHTML = score
-      if (window.playCoinSound) window.playCoinSound();
+      audio.playPowerPellet();
       ghosts.forEach(ghost => {
         ghost.isScared = true
         squares[ghost.currentIndex].classList.add('scared-ghost')
@@ -157,6 +312,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  // unscare ghosts
   function unScareGhosts() {
     ghosts.forEach(ghost => {
       ghost.isScared = false
@@ -214,9 +370,17 @@ document.addEventListener('DOMContentLoaded', () => {
         
         squares[ghost.currentIndex].classList.remove(ghost.className)
         squares[ghost.currentIndex].classList.remove('ghost', 'scared-ghost')
+        squares[ghost.currentIndex].style.transform = '' // Reset scale/rotations
         
         ghost.currentIndex = targetIndex
         squares[ghost.currentIndex].classList.add(ghost.className, 'ghost')
+
+        // Apply directional flipping to ghost sprite so eyes look moving direction
+        if (direction === -1) {
+          squares[ghost.currentIndex].style.transform = 'scaleX(-1)';
+        } else if (direction === 1) {
+          squares[ghost.currentIndex].style.transform = 'scaleX(1)';
+        }
       } else {
         direction = directions[Math.floor(Math.random() * directions.length)]
       }
@@ -230,7 +394,7 @@ document.addEventListener('DOMContentLoaded', () => {
         ghost.currentIndex = ghost.startIndex
         score += 100
         scoreDisplay.innerHTML = score
-        if (window.playCoinSound) window.playCoinSound();
+        audio.playGhostEat();
         squares[ghost.currentIndex].classList.add(ghost.className, 'ghost')
       }
       checkForGameOver()
@@ -244,6 +408,7 @@ document.addEventListener('DOMContentLoaded', () => {
       ghosts.forEach(ghost => clearInterval(ghost.timerId))
       clearInterval(pacmanTimer)
       document.removeEventListener('keydown', handleKeyDown)
+      audio.playDeath();
       
       setTimeout(function() { 
         if (window.showGameModal) {
@@ -282,7 +447,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const size = 468 // Base size (448px grid + padding)
     const scale = Math.min(w / size, h / size, 1)
     grid.style.transform = `scale(${scale})`
-    grid.style.transformOrigin = 'center top'
+    grid.style.transformOrigin = 'center center'
   }
   window.addEventListener('resize', scaleGrid)
   scaleGrid()

@@ -17,7 +17,7 @@ export default function PageTransitionProvider({ children }: { children: React.R
     const timer = setTimeout(() => {
       setLoading(false);
       document.body.classList.remove('disabledScroll');
-    }, 1600);
+    }, 700);
     return () => clearTimeout(timer);
   }, []);
 
@@ -56,10 +56,10 @@ export default function PageTransitionProvider({ children }: { children: React.R
       setLoading(true);
       document.body.classList.add('disabledScroll');
 
-      // 2. Perform route change after screen is fully covered (450ms)
+      // 2. Perform route change after screen is fully covered (180ms)
       setTimeout(() => {
         router.push(href);
-      }, 450);
+      }, 180);
     };
 
     window.addEventListener('click', handleGlobalClick, { capture: true });
@@ -77,7 +77,7 @@ export default function PageTransitionProvider({ children }: { children: React.R
       const transitionTimer = setTimeout(() => {
         setLoading(false);
         document.body.classList.remove('disabledScroll');
-      }, 650);
+      }, 300);
 
       prevPathRef.current = currentPath;
       return () => clearTimeout(transitionTimer);

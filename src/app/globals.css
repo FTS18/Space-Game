@@ -218,7 +218,7 @@ h1, h2, h3, h4, h5, h6, .games h3, .welcome-div h1, .f-group h5, .input-group la
   .main-content-wrapper {
     margin-left: 0 !important;
     width: 100% !important;
-    padding-bottom: 60px !important;
+    padding-bottom: 50px !important;
     padding-top: 60px !important;
     position: relative !important;
   }
@@ -247,7 +247,7 @@ h1, h2, h3, h4, h5, h6, .games h3, .welcome-div h1, .f-group h5, .input-group la
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 60px;
+    height: 50px;
     background: #0e0c15 !important;
     border-top: 2px solid #1c1828 !important;
     z-index: 10000;
@@ -261,11 +261,12 @@ h1, h2, h3, h4, h5, h6, .games h3, .welcome-div h1, .f-group h5, .input-group la
     align-items: center;
     justify-content: center;
     color: #9692a8 !important;
-    font-size: 11px;
+    font-size: 10px;
     text-transform: uppercase;
     flex: 1;
     height: 100%;
-    transition: all 0.2s ease;
+    transition: all 0.15s ease;
+    gap: 3px;
   }
 
   .mobile-bottom-hud a:hover {

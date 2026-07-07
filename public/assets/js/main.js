@@ -232,21 +232,22 @@ $(function() {
         var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
         if (!isMobile) return;
 
-        var path = window.location.pathname;
-        if (path.indexOf('ludo') !== -1 || path.indexOf('tic-tac-toe') !== -1) return;
+        var path = window.location.pathname.toLowerCase();
+        var needsDpad = path.indexOf('space-fire') !== -1;
+        if (!needsDpad) return;
 
         var controls = document.createElement('div');
         controls.id = 'mobile-hud-controls';
-        controls.style.cssText = 'position:fixed; bottom:20px; left:20px; right:20px; height:120px; z-index:999; display:flex; justify-content:space-between; align-items:center; pointer-events:none; transition: opacity 0.25s ease;';
+        controls.style.cssText = 'position:fixed; bottom:10px; left:10px; right:10px; height:90px; z-index:999; display:flex; justify-content:space-between; align-items:center; pointer-events:none; transition: opacity 0.25s ease;';
         
         // Left Dpad Grid
         var dpad = document.createElement('div');
-        dpad.style.cssText = 'width:120px; height:120px; display:grid; grid-template-columns: repeat(3, 40px); grid-template-rows: repeat(3, 40px); pointer-events:auto; transition: opacity 0.2s ease;';
+        dpad.style.cssText = 'width:90px; height:90px; display:grid; grid-template-columns: repeat(3, 30px); grid-template-rows: repeat(3, 30px); pointer-events:auto; transition: opacity 0.2s ease;';
         
         function makeDButton(label, arrowKey) {
             var btn = document.createElement('button');
             btn.innerText = label;
-            btn.style.cssText = 'background:rgba(14, 12, 21, 0.7); color:#dfc06f; border:2px solid #dfc06f; font-family:"Jersey 10", sans-serif; font-size:18px; border-radius:50%; width:36px; height:36px; padding:0; cursor:pointer; outline:none; display:flex; justify-content:center; align-items:center;';
+            btn.style.cssText = 'background:rgba(14, 12, 21, 0.7); color:#dfc06f; border:2px solid #dfc06f; font-family:"Jersey 10", sans-serif; font-size:14px; border-radius:50%; width:26px; height:26px; padding:0; cursor:pointer; outline:none; display:flex; justify-content:center; align-items:center;';
             btn.addEventListener('touchstart', function(e) {
                 e.preventDefault();
                 document.dispatchEvent(new KeyboardEvent('keydown', { keyCode: arrowKey }));
@@ -262,10 +263,10 @@ $(function() {
             return btn;
         }
         
-        var btnUp = makeDButton('▲', 38);
-        var btnLeft = makeDButton('◀', 37);
-        var btnRight = makeDButton('▶', 39);
-        var btnDown = makeDButton('▼', 40);
+        var btnUp = makeDButton('U', 38);
+        var btnLeft = makeDButton('L', 37);
+        var btnRight = makeDButton('R', 39);
+        var btnDown = makeDButton('D', 40);
         
         var empty = () => document.createElement('div');
         
@@ -283,10 +284,10 @@ $(function() {
         
         // Show Fire Button only for Space Fire game page
         var fireBtn = null;
-        if (window.location.pathname.indexOf('space-fire') !== -1) {
+        if (path.indexOf('space-fire') !== -1) {
             fireBtn = document.createElement('button');
             fireBtn.innerText = 'FIRE';
-            fireBtn.style.cssText = 'width:70px; height:70px; border-radius:50%; background:rgba(255, 1, 70, 0.4); color:#ff0146; border:3px solid #ff0146; font-family:"Jersey 10", sans-serif; font-size:18px; font-weight:bold; cursor:pointer; pointer-events:auto; display:flex; justify-content:center; align-items:center; outline:none; transition: opacity 0.2s ease;';
+            fireBtn.style.cssText = 'width:50px; height:50px; border-radius:50%; background:rgba(255, 1, 70, 0.4); color:#ff0146; border:3px solid #ff0146; font-family:"Jersey 10", sans-serif; font-size:14px; font-weight:bold; cursor:pointer; pointer-events:auto; display:flex; justify-content:center; align-items:center; outline:none; transition: opacity 0.2s ease;';
             fireBtn.addEventListener('touchstart', function(e) {
                 e.preventDefault();
                 document.dispatchEvent(new KeyboardEvent('keydown', { keyCode: 32 }));
@@ -307,7 +308,7 @@ $(function() {
         // Mode Selector Toggle button (D-PAD vs SWIPE)
         var modeToggle = document.createElement('button');
         modeToggle.innerText = 'MODE: D-PAD';
-        modeToggle.style.cssText = 'position:fixed; top:15px; right:15px; background:rgba(14, 12, 21, 0.85); color:#dfc06f; border:2px solid #dfc06f; font-family:"Jersey 10", sans-serif; font-size:16px; padding:6px 14px; cursor:pointer; z-index:1000; outline:none; letter-spacing:1px; text-transform:uppercase;';
+        modeToggle.style.cssText = 'position:fixed; top:10px; right:10px; background:rgba(14, 12, 21, 0.85); color:#dfc06f; border:2px solid #dfc06f; font-family:"Jersey 10", sans-serif; font-size:14px; padding:4px 10px; cursor:pointer; z-index:1000; outline:none; letter-spacing:0.5px; text-transform:uppercase;';
         
         modeToggle.addEventListener('touchstart', function(e) {
             e.preventDefault();
