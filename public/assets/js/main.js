@@ -1,3 +1,87 @@
+// Track all AudioContext and Audio instances created in the window for full muting
+window._finixxMuted = false;
+window._allAudioContexts = [];
+window._allAudios = [];
+
+const OriginalAudioContext = window.AudioContext || window.webkitAudioContext;
+if (OriginalAudioContext) {
+    const WrappedAudioContext = function(...args) {
+        const context = new OriginalAudioContext(...args);
+        window._allAudioContexts.push(context);
+        
+        // Override resume method to prevent unmuting while muted
+        const originalResume = context.resume;
+        context.resume = function() {
+            if (window._finixxMuted) {
+                return Promise.resolve();
+            }
+            return originalResume.apply(context, arguments);
+        };
+        
+        if (window._finixxMuted) {
+            context.suspend().catch(function() {});
+        }
+        return context;
+    };
+    WrappedAudioContext.prototype = OriginalAudioContext.prototype;
+    
+    // Copy static properties/methods if any
+    Object.keys(OriginalAudioContext).forEach(key => {
+        WrappedAudioContext[key] = OriginalAudioContext[key];
+    });
+
+    window.AudioContext = WrappedAudioContext;
+    window.webkitAudioContext = WrappedAudioContext;
+}
+
+const OriginalAudio = window.Audio;
+if (OriginalAudio) {
+    window.Audio = function(...args) {
+        const audio = new OriginalAudio(...args);
+        if (window._finixxMuted) {
+            audio.muted = true;
+        }
+        window._allAudios.push(audio);
+        return audio;
+    };
+    window.Audio.prototype = OriginalAudio.prototype;
+}
+
+// Global listener for muting signals from Next.js parent app
+window.addEventListener('message', function(event) {
+    if (event.data && event.data.type === 'FINIXX_MUTE') {
+        const muted = !!event.data.muted;
+        window._finixxMuted = muted;
+        
+        // Mute all current DOM audio/video elements
+        document.querySelectorAll('audio, video').forEach(function(el) {
+            el.muted = muted;
+        });
+        
+        // Mute all registered Audio constructor objects
+        if (window._allAudios) {
+            window._allAudios.forEach(function(audio) {
+                audio.muted = muted;
+            });
+        }
+        
+        // Suspend/Resume all AudioContexts
+        if (window._allAudioContexts) {
+            window._allAudioContexts.forEach(function(ctx) {
+                if (muted) {
+                    if (ctx.state !== 'suspended') {
+                        ctx.suspend().catch(function() {});
+                    }
+                } else {
+                    if (ctx.state === 'suspended') {
+                        ctx.resume().catch(function() {});
+                    }
+                }
+            });
+        }
+    }
+});
+
 console.log('Hello World!');
 
 // Web Audio API Synthesizer Sound Effects (8-Bit Retro Sounds)

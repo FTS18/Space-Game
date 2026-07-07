@@ -24,7 +24,12 @@ export default function GamePage({ params }: GamePageProps): React.JSX.Element {
     Array<{ username: string; score: number }>
   >([]);
   const [showMobileScores, setShowMobileScores] = React.useState(false);
-  const [isMuted, setIsMuted] = React.useState(false);
+  const [isMuted, setIsMuted] = React.useState(() => {
+    if (typeof window !== "undefined") {
+      return localStorage.getItem("finixx_muted") === "true";
+    }
+    return false;
+  });
 
   // Hide mobile top header on game page for max screen real estate
   React.useEffect(() => {
@@ -108,6 +113,7 @@ export default function GamePage({ params }: GamePageProps): React.JSX.Element {
   const handleToggleMute = () => {
     const newMuted = !isMuted;
     setIsMuted(newMuted);
+    localStorage.setItem("finixx_muted", String(newMuted));
     if (iframeRef.current?.contentWindow) {
       // Signal the game iframe
       iframeRef.current.contentWindow.postMessage({ type: 'FINIXX_MUTE', muted: newMuted }, '*');
@@ -588,6 +594,11 @@ export default function GamePage({ params }: GamePageProps): React.JSX.Element {
             <iframe
               ref={iframeRef}
               src={iframeSrc}
+              onLoad={() => {
+                if (iframeRef.current?.contentWindow) {
+                  iframeRef.current.contentWindow.postMessage({ type: 'FINIXX_MUTE', muted: isMuted }, '*');
+                }
+              }}
               style={{
                 width: "100%",
                 height: "100%",
