@@ -14,6 +14,7 @@ export default function Header(): React.JSX.Element {
   // Auto-detect active pages
   const isHomeActive = pathname === '/';
   const isLoginActive = pathname === '/login';
+  const isAppStoreActive = pathname === '/appstore';
 
   return (
     <>
@@ -96,6 +97,10 @@ export default function Header(): React.JSX.Element {
         <nav className="menu-links">
           <Link href="/" className={isHomeActive ? 'active' : ''}>
             <i className="fas fa-gamepad" style={{ marginRight: '12px' }}></i>Home
+          </Link>
+
+          <Link href="/appstore" className={isAppStoreActive ? 'active' : ''}>
+            <i className="fas fa-store" style={{ marginRight: '12px' }}></i>App Store
           </Link>
 
           {!user && (
@@ -200,6 +205,10 @@ export default function Header(): React.JSX.Element {
         <Link href="/" className={isHomeActive ? 'active' : ''}>
           <i className="fas fa-gamepad" style={{ fontSize: '18px', marginBottom: '4px' }}></i>
           <span>Home</span>
+        </Link>
+        <Link href="/appstore" className={isAppStoreActive ? 'active' : ''}>
+          <i className="fas fa-store" style={{ fontSize: '18px', marginBottom: '4px' }}></i>
+          <span>Apps</span>
         </Link>
         {user ? (
           <>

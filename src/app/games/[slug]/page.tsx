@@ -407,6 +407,9 @@ export default function GamePage({ params }: GamePageProps): React.JSX.Element {
                 padding: 0 !important;
             }
             /* Mobile scores overlay — sits between top of screen and bottom nav */
+            .leaderboard-panel {
+                display: none !important;
+            }
             .mobile-scores-overlay {
                 display: flex !important;
                 position: fixed !important;
@@ -616,6 +619,7 @@ export default function GamePage({ params }: GamePageProps): React.JSX.Element {
               }}
               title={game.title}
               scrolling="no"
+              allow="fullscreen"
             />
           </div>
 

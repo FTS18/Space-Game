@@ -20,7 +20,7 @@ export default function NotFound(): React.JSX.Element {
           height: 100vh;
           width: 100vw;
           overflow: hidden;
-          font-family: 'Pixelify Sans', sans-serif;
+          font-family: 'Jersey 10', sans-serif;
           position: relative;
         }
 

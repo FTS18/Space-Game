@@ -141,7 +141,7 @@ export default function Login(): React.JSX.Element {
           background-size: cover;
           position: relative;
           overflow: hidden;
-          font-family: 'Pixelify Sans', sans-serif !important;
+          font-family: 'Jersey 10', sans-serif !important;
           padding: 40px 20px;
           box-sizing: border-box;
         }
